@@ -7,6 +7,8 @@
     border-radius: 12px;
     animation: loading 1s ease-in-out forwards;
     z-index: 2;
+    top:0;
+    
 }
 
 .TopLoader__line {
@@ -15,6 +17,7 @@
     height: 5px;
     background:rgba(185, 173, 173, 0.17);
     z-index: 1;
+    top:0;
 }
 @keyframes loading {
     to {
