@@ -26,7 +26,6 @@ const Problems = () => {
     const getProblems = async () => {
       setIsLoading(true);
       const data = await getProblemsApi();
-      console.log(data);
       setProblems(data);
       setProblemsSearch(data);
       setIsLoading(false);
@@ -95,7 +94,7 @@ const Problems = () => {
                 </div>
               </div>
             </div>
-            {!problemsSearch && (
+            {problemsSearch.length === 0 && (
               <div className="none">
                 <h4>Наразі на цій сторінці немає жодних проблем.</h4>
               </div>

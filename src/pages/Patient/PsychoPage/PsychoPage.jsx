@@ -4,6 +4,7 @@ import { CardPsycho, Loader, TopLoader } from "../../../components";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
 import { psychosListApi } from "../../../api/apiPatient";
+import SearchPsycho from "../../../components/SearchPsycho/SearchPsycho.jsx";
 
 const PsychoPage = () => {
   useEffect(() => {
@@ -18,11 +19,14 @@ const PsychoPage = () => {
     }
   }, [isPsycho()]);
   const [psychos, setPsychos] = useState([]);
+  const [psychosSearch, setPsychosSearch] = useState([]);
+
   useEffect(() => {
     const getPsychos = async () => {
       setIsLoading(true);
       const data = await psychosListApi();
       setPsychos(data);
+      setPsychosSearch(data);
       setIsLoading(false);
     };
     getPsychos();
@@ -51,7 +55,10 @@ const PsychoPage = () => {
           </div>
         ) : (
           <div className="problems__container-content">
-            <h1>Усі психологи</h1>
+            <div className="problems__container-content_search">
+              <h1>Усі психологи</h1>
+              <SearchPsycho psychos={psychos} setPsychosSearch={setPsychosSearch}/>
+            </div>
             <span></span>
             <div className="problems__container-content_totaldrop">
               <h4>Загалом: {psychos && psychos.length}</h4>
@@ -86,14 +93,14 @@ const PsychoPage = () => {
                 </div>
               </div>
             </div>
-            {!psychos && (
+            {!psychosSearch && (
               <div className="none">
                 <h4>Наразі на цій сторінці немає психологів</h4>
               </div>
             )}
             <div className="problems__container-content_cards">
-              {psychos &&
-                psychos.map((psycho, index) => (
+              {psychosSearch  &&
+                  psychosSearch .map((psycho, index) => (
                   <CardPsycho key={index} psycho={psycho} />
                 ))}
             </div>

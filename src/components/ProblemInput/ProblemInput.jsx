@@ -1,16 +1,21 @@
 import "./ProblemInput.css";
 import images from "../../constants/images.js";
 import {useState} from "react";
+import {categories} from "../../constants/index.js";
 
 const ProblemInput = (props) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
-    const [selectedOption, setSelectedOption] = useState("Останні");
+    const [selectedOption, setSelectedOption] = useState("Депресія");
 
     const handleOptionClick = (option) => {
         setSelectedOption(option);
+        props.setCategory(categories.filter((category) => {
+            return category.title === option;
+        })[0].id);
+
         setIsDropdownOpen(false);
     };
 
@@ -28,35 +33,15 @@ const ProblemInput = (props) => {
                       className={`problemInput__container-content_totaldrop-dropdown_content ${
                           isDropdownOpen ? "open" : ""
                       }`}
-                  >
+                  >{categories.map((category)=>(
                       <div
                           className="problemInput__container-content_totaldrop-dropdown_content-wrapper"
-                          onClick={() => handleOptionClick("Останні")}
+                          onClick={() => handleOptionClick(category.title)}
                       >
                           <img src={images.CategoryIco} alt="ico"/>
-                          <p>Останні</p>
+                          <p>{category.title}</p>
                       </div>
-                      <div
-                          className="problemInput__container-content_totaldrop-dropdown_content-wrapper"
-                          onClick={() => handleOptionClick("За другим")}
-                      >
-                          <img src={images.CategoryIco} alt="ico"/>
-                          <p>За другим</p>
-                      </div>
-                      <div
-                          className="problemInput__container-content_totaldrop-dropdown_content-wrapper"
-                          onClick={() => handleOptionClick("За третім")}
-                      >
-                          <img src={images.CategoryIco} alt="ico"/>
-                          <p>За третім</p>
-                      </div>
-                      <div
-                          className="problemInput__container-content_totaldrop-dropdown_content-wrapper"
-                          onClick={() => handleOptionClick("За четвертим")}
-                      >
-                          <img src={images.CategoryIco} alt="ico"/>
-                          <p>За четвертим</p>
-                      </div>
+                      ))}
                   </div>
               </div>
               <textarea className="first" placeholder="Опишіть вашу проблему" value={props.description} onChange={(e)=>{props.handleDescription(e)}}/>

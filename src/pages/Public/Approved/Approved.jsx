@@ -99,7 +99,7 @@ const Approved = () => {
                 </div>
               </div>
             </div>
-              {!problemsSearch && (
+              {problemsSearch.length === 0 && (
                 <div className="none">
                   <h4>Наразі на цій сторінці немає жодних узгоджених проблем.</h4>
                 </div>

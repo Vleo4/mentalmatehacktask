@@ -15,6 +15,9 @@ const CardPsycho = ({ psycho }) => {
     event.stopPropagation();
     window.open(psycho.cv, "_blank");
   };
+
+  const imageArray = Array.from({ length: 5 }, () => images.EmptyStar);
+
   return (
     <div className="cardpsycho" onClick={handleCardClick}>
       <div className="cardpsycho_info">
@@ -34,17 +37,17 @@ const CardPsycho = ({ psycho }) => {
         </div>
         <img src={images.Ava} alt="Ava" />
       </div>
-      {psycho.description && (
-        <div className="cardpsycho-description">
-          <span style={{ marginBottom: 12 }}></span>
-          <h3>{shortenedDesc}</h3>
-        </div>
-      )}
-    
-      {/* <span style={{ marginBottom: 12 }}></span>
-      <div className="cardpsycho-rating">
+      <span style={{ marginBottom: 12 }}></span>
 
-      </div> */}
+      <div className="cardpsycho-description">
+        <h3>{shortenedDesc}</h3>
+      </div>
+
+      <div className="cardpsycho-rating">
+        {imageArray.map((image, index) => (
+          <img key={index} src={image} alt="Image" />
+        ))}
+      </div>
     </div>
   );
 };

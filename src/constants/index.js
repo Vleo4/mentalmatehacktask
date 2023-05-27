@@ -34,4 +34,17 @@ export   const languages = [
 ];
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export   const digits = /^[0-9]*$/;
+export const categories=
+[
+    {  id:1,title:'Депресія'},
+    {  id:2,title:'Тривожність'},
+    {  id:3,title:'Стрес'},
+    {  id:4,title:'Постравматичний розлад'},
+    {  id:5,title:'Залежність'},
+    {  id:6,title:'Міжособистісні проблеми'},
+    {  id:7,title:'Травми'},
+    {  id:8,title:'Сексуальні розлади'},
+    {  id:9,title:'Розлади сна'},
+    {  id:10,title:'Розлади особистості'},
+]
 export {images};
