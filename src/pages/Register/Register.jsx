@@ -47,7 +47,7 @@ const Register = () => {
     const handleOptionClick = (option) => {
         if(!lang.includes(option)) {
             if (lang && !lang.includes(option)) {
-                setLang(lang + "," + option);
+                setLang(lang + ", " + option);
             } else {
                 setLang(option);
             }
@@ -55,86 +55,81 @@ const Register = () => {
         setIsDropdownOpen(false);
     };
     const isMobile = useResizer();
+    const digits = /^[0-9]*$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const [part, setPart] = useState(1);
     const [button, setButton] = useState(false);
     const [button3, setButton3] = useState(false);
     const [isPsycho, setIsPsycho] = useState("abc");
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
-    const [desc, setDesc] = useState("");
-    const [skills, setSkills] = useState([]);
-    const [contacts, setContacts] = useState([]);
-    const [add,setAdd]=useState("");
-    const [addCon,setAddCon]=useState("");
-    const [isActiveAdd, setIsActiveAdd] = useState(true);
-    const [isActiveAddCon, setIsActiveAddCon] = useState(true);
-    const [isActiveDesc, setIsActiveDesc] = useState(true);
-    const [login, setLogin] = useState("");
-    const [isActiveLogin, setIsActiveLogin] = useState(true);
-    const [isActiveEmail, setIsActiveEmail] = useState(true);
-    const [isActivePass, setIsActivePass] = useState(true);
-    const [name, setName] = useState(null);
-    const [isActiveName, setIsActiveName] = useState(true);
-    const [eye, setEye] = useState(false);
-    const [alert, setAlert] = useState(false);
-    const [isLogin, setIsLogin] = useState(true);
-    const [isEmail, setIsEmail] = useState(true);
-    const [isPass, setIsPass] = useState(true);
-    const [isName, setIsName] = useState(true);
-    const [isDesc, setIsDesc] = useState(true);
-    const [isAdd,setIsAdd]=useState(true);
-    const [isAddCon,setIsAddCon]=useState(true);
-    const [age,setAge] =useState("");
-    const [isAge, setIsAge] =useState(true);
-    const [isActiveAge,setIsActiveAge]=useState(true);
-    const digits = /^[0-9]*$/;
-    const [part, setPart] = useState(1);
+    //files
     const [files,setFiles]=useState(null);
-    const addSkills =()=>{
-        if(add) {
-            setSkills([...skills, add]);
-            setAdd("");
+    function handleFile(event) {
+        const file = event.target.files[0];
+        const maxSizeInBytes = 4 * 1024 * 1024; // 4 МБ
+        if (file.size > maxSizeInBytes) {
+            setAlertTxt("Розмір файлу занадто великий");
+            setAlert(true);
+        }
+        else{
+            setFiles(file);
         }
     }
-    const addContacts =()=>{
-        if(addCon) {
-            setContacts([...contacts, addCon]);
-            setAddCon("");
-        }
+    const deleteFile=()=>{
+        setFiles(null);
     }
-    const deleteSkill=(index)=>{
-        const newSkills = skills.filter((block, i) => i !== index);
-        setSkills(newSkills);
-    }
-    const deleteContacts=(index)=>{
-        const newContacts = contacts.filter((block, i) => i !== index);
-        setSkills(newContacts);
-    }
-    const handleLoginChange = (event) => {
-        setIsLogin(true);
-        setLogin(event.target.value);
+    //alert
+    const [alert, setAlert] = useState(false);
+    const [alertTxt, setAlertTxt] = useState("");
+    //email
+    const [email, setEmail] = useState("");
+    const [isEmail, setIsEmail] = useState(true);
+    const [isActiveEmail, setIsActiveEmail] = useState(true);
+    const handleEmail = (event) => {
+        setIsEmail(true);
+        setEmail(event.target.value);
     };
-    const handleAddChange = (event) => {
-        setIsAdd(true);
-        setAdd(event.target.value);
-    };
-    const handleAddConChange = (event) => {
-        setIsAddCon(true);
-        setAddCon(event.target.value);
-    }
-    const handleDescChange = (event) => {
-        setIsDesc(true);
-        if(event.target.value.length<101) {
-            setDesc(event.target.value);
-        }
-    };
-    const handlePassChange = (event) => {
+    //pass
+    const [pass, setPass] = useState("");
+    const [isPass, setIsPass] = useState(true);
+    const [isActivePass, setIsActivePass] = useState(true);
+    const [eye, setEye] = useState(false);
+    const handlePass = (event) => {
         setIsPass(true);
         setPass(event.target.value);
     };
-    const handleName = (event) => {
-        setIsName(true);
-        setName(event.target.value);
+    //desc
+    const [desc, setDesc] = useState("");
+    const [isDesc, setIsDesc] = useState(true);
+    const [isActiveDesc, setIsActiveDesc] = useState(true);
+    const handleDesc = (event) => {
+        setIsDesc(true);
+        if(event.target.value.length<300) {
+            setDesc(event.target.value);
+        }
     };
+    //perspectives
+    const [perspectives, setPerspectives] = useState([]);
+    const addPerspectives =()=>{
+        if(add) {
+            setPerspectives([...perspectives, add]);
+            setAdd("");
+        }
+    }
+    const deletePerspective=(index)=>{
+        const newPerspectives = perspectives.filter((block, i) => i !== index);
+        setPerspectives(newPerspectives);
+    }
+    //add
+    const [add,setAdd]=useState("");
+    const [isActiveAdd, setIsActiveAdd] = useState(true);
+    const handleAdd = (event) => {
+        setIsAdd(true);
+        setAdd(event.target.value);
+    };
+    //age
+    const [age,setAge] =useState("");
+    const [isAge, setIsAge] =useState(true);
+    const [isActiveAge,setIsActiveAge]=useState(true);
     const handleAge = (event) => {
         if(digits.test(event.target.value))
         {
@@ -142,11 +137,45 @@ const Register = () => {
             setAge(event.target.value);
         }
     };
-    const handleEmailChange = (event) => {
-        setIsEmail(true);
-        setEmail(event.target.value);
+    //login
+    const [login, setLogin] = useState("");
+    const [isLogin, setIsLogin] = useState(true);
+    const [isActiveLogin, setIsActiveLogin] = useState(true);
+    const handleLogin = (event) => {
+        setIsLogin(true);
+        setLogin(event.target.value);
     };
-    const [alertTxt, setAlertTxt] = useState("");
+    //name
+    const [name, setName] = useState(null);
+    const [isName, setIsName] = useState(true);
+    const [isActiveName, setIsActiveName] = useState(true);
+    const [isAdd,setIsAdd]=useState(true);
+    const handleName = (event) => {
+        setIsName(true);
+        setName(event.target.value);
+    };
+    //number
+    const [number,setNumber]=useState(null);
+    const [isNumber,setIsNumber]=useState(true);
+    const [isActiveNumber,setIsActiveNumber]=useState(true);
+    const handleNumber = (event) => {
+        setIsNumber(true);
+        if(digits.test(event.target.value)) {
+            setNumber(event.target.value);
+        }
+    };
+    //mail
+    const [mail,setMail]=useState(null);
+    const [isMail, setIsMail] = useState(true);
+    const [isActiveMail, setIsActiveMail] = useState(true);
+    const handleMail = (event) => {
+        setIsMail(true);
+        setMail(event.target.value);
+    };
+
+
+
+
     const register = async () => {
         const data = await registerApi(login, email, pass,isPsycho);
         console.log(data.data);
@@ -161,7 +190,6 @@ const Register = () => {
     }
     const loginApi = () => {
         setAlert(false);
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let emailCheck = emailRegex.test(email);
         const passOnlyDigits = digits.test(pass);
         if(part===2) {
@@ -184,9 +212,9 @@ const Register = () => {
         }
         else if(!alert) {
             if (part === 3) {
-                const perspective = skills.join(', ');
-                const contact=contacts.join(', ')
-                updatePsycho(name, desc, files, "UNSKILL", perspective, lang, contact,age).then();
+                const perspective = perspectives.join(', ');
+                const contacts=number+", "+mail;
+                updatePsycho(name, desc, files, "UNSKILL", perspective, lang, contacts,age).then();
             } else if (part === 1 &&(isPsycho === false || isPsycho === true)) {
                 setPart(part + 1)
             }
@@ -201,37 +229,24 @@ const Register = () => {
         }
     }, [login, pass, email]);
     useEffect(() => {
-        if (name&&age&&desc&&contacts&&skills&&lang&&files) {
+        if (name&&age&&desc&&mail&&number&&perspectives&&lang&&files) {
             setButton3(true);
         } else {
             setButton3(false);
         }
-    }, [name,age,desc,contacts,skills,lang,files]);
+    }, [name,age,desc,mail,number,perspectives,lang,files]);
     useEffect(() => {
         if (isAuth()&&part!==2&&part!==3) {
             window.location.href = "/";
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuth()]);
-    function handleFileChange(event) {
-        const file = event.target.files[0];
-        const maxSizeInBytes = 4 * 1024 * 1024; // 4 МБ
-        if (file.size > maxSizeInBytes) {
-            setAlertTxt("Розмір файлу занадто великий");
-            setAlert(true);
-        }
-        else{
-            setFiles(file);
-        }
-    }
-    const deleteFile=()=>{
-        setFiles(null);
-    }
+
     return (
         <>
         <div className="login">
             <div className="login__login">
-                <div className="login__block register">
+                <div className={part===3?"login__block register3":"login__block register"}>
                     <div className="login__block__mini">
                         <div
                             className="login__text__welcome">{part === 1 ? 'Створити акаунт!' : part === 2 ? 'Важливий вибір!' : 'Майже готово!'}</div>
@@ -267,7 +282,7 @@ const Register = () => {
                                 <img src={images.LoginName} className="login__input__img" alt="User"/>
                                 <input
                                     className="login__input"
-                                    onChange={handleLoginChange}
+                                    onChange={handleLogin}
                                     onBlur={() => {
                                         setIsActiveLogin(true);
                                     }}
@@ -291,7 +306,7 @@ const Register = () => {
                                 <img src={images.MailIcon} className="login__input__img" alt={"MailIcon"}/>
                                 <input
                                     className="login__input"
-                                    onChange={handleEmailChange}
+                                    onChange={handleEmail}
                                     onBlur={() => {
                                         setIsActiveEmail(true);
                                     }}
@@ -315,7 +330,7 @@ const Register = () => {
                                 <img src={images.LoginPin} className="login__input__img" alt="Pin"/>
                                 <input
                                     className="login__input"
-                                    onChange={handlePassChange}
+                                    onChange={handlePass}
                                     onBlur={() => {
                                         setIsActivePass(true);
                                     }}
@@ -372,16 +387,16 @@ const Register = () => {
                                     onClick={() => {
                                         setIsPsycho(true)
                                     }}>
-                                    <img src={images.India2} alt="India" className="login__india__block__normal"/>
-                                    <div className="login__india__block__text">Хочу<br/>допомогти</div>
+                                    <img src={isPsycho === true?images.IndiaBlack:images.India2} alt="India" className="login__india__block__normal"/>
+                                    <div className={isPsycho === true?"login__india__block__text black":"login__india__block__text"}>Хочу<br/>допомогти</div>
                                 </div>
                                 <div
                                     className={isPsycho === false ? "login__india__block__active" : "login__india__block"}
                                     onClick={() => {
                                         setIsPsycho(false)
                                     }}>
-                                    <img src={images.India2} alt="India" className="login__india__block__revert"/>
-                                    <div className="login__india__block__text">Шукаю<br/>допомоги</div>
+                                    <img src={isPsycho === false?images.IndiaBlack:images.India2} alt="India" className="login__india__block__revert"/>
+                                    <div className={isPsycho === false?"login__india__block__text black":"login__india__block__text"}>Шукаю<br/>допомоги</div>
                                 </div>
                             </div>
                             <div
@@ -454,7 +469,7 @@ const Register = () => {
                                 >
                                     <textarea
                                         className="login__input descArea"
-                                        onChange={(e)=>{handleDescChange(e)}}
+                                        onChange={(e)=>{handleDesc(e)}}
                                         onBlur={() => {
                                             setIsActiveDesc(true);
                                         }}
@@ -466,45 +481,55 @@ const Register = () => {
                                     />
                                 </div>
                                 <div className="login__text">Контактні дані</div>
-                                {contacts&&contacts.map((contact,index)=>(
-                                    <div key={index} className="login__input__block login__skills">
-                                        <div className="login__input text__left">{contact}</div>
-                                        <img
-                                            src={images.Delete}
-                                            alt="delete"
-                                            className="login__input__img__right"
-                                            onClick={() => {
-                                                deleteContacts(index);
-                                            }}
-                                        />
-                                    </div>
-                                ))
-                                }
                                 <div
                                     className={
-                                        isActiveAddCon
-                                            ? isAddCon
-                                                ? "login__input__block login__skills"
-                                                : "login__input__block__false login__skills"
-                                            : "login__input__block__active login__skills"
-                                    }>
+                                        isActiveNumber
+                                            ? isNumber
+                                                ? "login__input__block"
+                                                : "login__input__block__false"
+                                            : "login__input__block__active"
+                                    }
+                                >
                                     <input
                                         className="login__input"
-                                        onChange={handleAddConChange}
+                                        onChange={(e)=>{handleNumber(e)}}
                                         onBlur={() => {
-                                            setIsActiveAddCon(true);
+                                            setIsActiveNumber(true);
                                         }}
                                         onClick={() => {
-                                            setIsActiveAddCon(false);
+                                            setIsActiveNumber(false);
                                         }}
                                         type="text"
-                                        placeholder="Telegram:@abc"
-                                        value={addCon}
+                                        value={number}
+                                        placeholder="Номер телефону 066..."
                                     />
-                                    <img src={images.Add} alt="add" onClick={addContacts} className="login__input__img__right"/>
+                                </div>
+                            <br/>
+                                <div
+                                    className={
+                                        isActiveMail
+                                            ? isMail
+                                                ? "login__input__block"
+                                                : "login__input__block__false"
+                                            : "login__input__block__active"
+                                    }
+                                >
+                                    <input
+                                        className="login__input"
+                                        onChange={(e)=>{handleMail(e)}}
+                                        onBlur={() => {
+                                            setIsActiveMail(true);
+                                        }}
+                                        onClick={() => {
+                                            setIsActiveMail(false);
+                                        }}
+                                        type="text"
+                                        value={mail}
+                                        placeholder="Електронна адреса"
+                                    />
                                 </div>
                                 <div className="login__text">Ваші напрями</div>
-                                {skills&&skills.map((skill,index)=>(
+                                {perspectives&&perspectives.map((skill,index)=>(
                                     <div key={index} className="login__input__block login__skills">
                                         <div className="login__input text__left">{skill}</div>
                                         <img
@@ -512,7 +537,7 @@ const Register = () => {
                                             alt="delete"
                                             className="login__input__img__right"
                                             onClick={() => {
-                                                deleteSkill(index);
+                                                deletePerspective(index);
                                             }}
                                         />
                                     </div>
@@ -528,7 +553,7 @@ const Register = () => {
                                     }>
                                     <input
                                         className="login__input"
-                                        onChange={handleAddChange}
+                                        onChange={handleAdd}
                                         onBlur={() => {
                                             setIsActiveAdd(true);
                                         }}
@@ -539,7 +564,8 @@ const Register = () => {
                                         placeholder="Додати"
                                         value={add}
                                     />
-                                    <img src={images.Add} alt="add" onClick={addSkills} className="login__input__img__right"/>
+                                    <img src={images.Add} alt="add" onClick={addPerspectives} className="login__input__img__right"/>
+
                                 </div>
                                 <div className="login__text">Мови</div>
                                 <div className="login__dropdown  drop">
@@ -611,7 +637,7 @@ const Register = () => {
                                         id="myfile"
                                         accept=".pdf"
                                         type="file"
-                                        onChange={handleFileChange}
+                                        onChange={handleFile}
                                     />
                                 </label>
                                 </div>
@@ -626,7 +652,14 @@ const Register = () => {
                         }
                         {part === 3 && !isPsycho && <>
                             <div>ЯКІ БЛЯТЬ ПРОБЛЕМИ</div>
-                            <div>ПИздуй займись собою</div></>}
+                            <div>ПИздуй займись собою</div>
+                            <div
+                                onClick={()=>{window.location.href="/"}}
+                                className="login__button"
+                            ><span>Завершети реєстрацію</span>
+                            </div>
+                            <span className="login__footer_2"></span>
+                        </>}
                     </div>
             </div>
         </div>

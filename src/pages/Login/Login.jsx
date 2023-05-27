@@ -25,10 +25,10 @@ const Login = () => {
     const [alert, setAlert] = useState(false);
 
     // -------------------DEFAULT LOGIN-----------------------------
-    const handleLoginChange = (event) => {
+    const handleLogin = (event) => {
         setLogin(event.target.value);
     };
-    const handlePassChange = (event) => {
+    const handlePass = (event) => {
         setPass(event.target.value);
     };
     useEffect(() => {
@@ -84,7 +84,7 @@ const Login = () => {
                             <img src={images.LoginName}  className="login__input__img" alt="User"/>
                             <input
                                 className="login__input"
-                                onChange={handleLoginChange}
+                                onChange={handleLogin}
                                 onBlur={() => {
                                     setIsActiveLogin(true);
                                 }}
@@ -106,7 +106,7 @@ const Login = () => {
                             <img src={images.LoginPin} className="login__input__img" alt="Pin"/>
                             <input
                                 className="login__input"
-                                onChange={handlePassChange}
+                                onChange={handlePass}
                                 onBlur={() => {
                                     setIsActivePass(true);
                                 }}

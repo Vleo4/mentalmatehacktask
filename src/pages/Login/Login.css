@@ -1,14 +1,14 @@
 .login {
     min-height: 100vh;
     overflow-x: hidden;
-    background: url('../../assets/Ocean.svg') fixed;
+    background: url('../../assets/Ocean.svg') no-repeat;
+    background-size: cover;
 }
 .login__login {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 .login__block {
     width: 390px;
     display: flex;
@@ -20,7 +20,10 @@
     border-radius: 6px;
 }
 .register{
-    margin-top: 2vh;
+    margin-top: 15vh;
+}
+.register3{
+    margin-top: 3vh;
 }
 @media screen and (max-width: 768px) {
     .login__block {
@@ -393,6 +396,9 @@
     color: #2C343E;
     margin-bottom: auto;
 }
+.black{
+    border-top: 1px solid #2C343E;
+}
 .desc{
     height: 120px;
     white-space: pre-wrap;
@@ -575,4 +581,3 @@ textarea{
 .login__file{
     margin-left: 12px;
 }
-

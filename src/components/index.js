@@ -1,3 +1,4 @@
 import Loader from './Loader/Loader';
+import TopLoader from './TopLoader/TopLoader';
 
-export { Loader };
+export { Loader, TopLoader };

@@ -11,6 +11,9 @@ if (accessToken) {
     token = jwtDecode(accessToken);
     console.log(token);
 }
+export const isPsycho = () => {
+    return token.is_psycho === true;
+}
 
 // --------------- PROFILE ------------------------
 
@@ -19,7 +22,6 @@ export const profileApi = async () => {
         const userId = jwtDecode(accessToken).user_id;
         console.log(userId);
         const response = await axios.get(url + `psycho/${userId}/`);
-
         return response.data;
     } catch (error) {
         console.log(error);
@@ -28,23 +30,30 @@ export const profileApi = async () => {
 
 // --------------- UPDATE PROFILE ------------------------
 
-export const editProfileApi = async (name, description, cv, skills, perspective, lang, contacts) => {
+export const updatePsycho = async (name, description, cv, skills, perspective, lang, contacts,age) => {
     try {
-        const response = await axios.put(
-            url + "psycho/update/",
-            {
-                name: name,
-                description: description,
-                cv: cv,
-                skills: skills,
-                perspective: perspective,
-                lang: lang,
-                contacts: contacts,
+        console.log(cv);
+        const accessToken = getFromLocalStorage("ACCESS_TOKEN");
+        const response = await axios.put(url + "psycho/update/", {
+            "name": name,
+            "description": description,
+            "cv": cv,
+            "skills": skills,
+            "perspective": perspective,
+            "lang": lang,
+            "contacts": contacts,
+            "age": age
+        }, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: 'Bearer ' + accessToken
             },
-            {
-                headers: { Authorization: "Bearer " + accessToken },
-            }
-        );
+
+        });
+        if(location.pathname==='/register')
+        {
+            window.location.href='/';
+        }
         return response.data;
     } catch (error) {
         console.log(error);
@@ -75,32 +84,7 @@ export const loginApi = async (username, password) => {
         console.log(error);
     }
 };
-export const updatePsycho = async (name, description, cv, skills, perspective, lang, contacts,age) => {
-    try {
-        console.log(cv);
-        const accessToken = getFromLocalStorage("ACCESS_TOKEN");
-        const response = await axios.put(url + "psycho/update/", {
-            "name": name,
-            "description": description,
-            "cv": cv,
-            "skills": skills,
-            "perspective": perspective,
-            "lang": lang,
-            "contacts": contacts,
-            "age": age
-        }, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: 'Bearer ' + accessToken
-            },
 
-        });
-        window.location.href="/";
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 export const refresh = async () => {
     try {
