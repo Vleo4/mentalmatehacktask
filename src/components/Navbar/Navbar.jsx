@@ -53,10 +53,7 @@ const Navbar = () => {
                 >
                   Узгоджено
                 </Link>
-                <Link
-                  to="/psychos"
-                  className="navbar__container-links_item"
-                >
+                <Link to="/psychos" className="navbar__container-links_item">
                   Психологи
                 </Link>
                 <h1 className="navbar__container-links_item" onClick={logOut}>
@@ -163,6 +160,16 @@ const Navbar = () => {
                     </Link>
                   )}
                 </div>
+                {!isPsycho() && (
+                  <div
+                    className="navbar-smallscreen_item-wrapper"
+                    onClick={handleToggleMenu}
+                  >
+                    <Link to="psychos" className="navbar-smallscreen_item">
+                      Психологи
+                    </Link>
+                  </div>
+                )}
                 {!isPsycho() && (
                   <div
                     className="navbar-smallscreen_item-wrapper"

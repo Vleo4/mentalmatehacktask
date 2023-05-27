@@ -8,7 +8,7 @@ const Card = ({problem}) => {
       <div className="card__content">
         <div className="card__content-category">
           <img src={images.CategoryIco} alt="Category" />
-          <h2>{problem.category}</h2>
+          <h2>{problem.cat.title}</h2>
         </div>
         <h2>{problem.title}</h2>
           <p style={{ marginTop: 12 }}>

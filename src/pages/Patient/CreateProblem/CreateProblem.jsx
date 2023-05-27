@@ -2,9 +2,8 @@ import '../MyProblemID/MyProblemID.css';
 import "./CreateProblem.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
-import ProblemInput from "../../../components/ProblemInput/ProblemInput.jsx";
 import { createProblemAPI} from "../../../api/apiPatient.js";
-import {Alert} from "../../../components/index.js";
+import {Alert, ProblemInput} from "../../../components/index.js";
 import {digits, emailRegex} from "../../../constants/index.js";
 
 const CreateProblem = () => {

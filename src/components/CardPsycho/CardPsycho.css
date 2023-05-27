@@ -12,6 +12,7 @@
   cursor: pointer;
 }
 .cardpsycho span {
+
   background: rgba(255, 255, 255, 0.3);
   width: 100%;
   height: 1px;
@@ -52,6 +53,10 @@
   cursor: pointer;
 }
 
+.cardpsycho-description{
+  display: flex;
+  flex-direction: column;
+}
 @media screen and (max-width: 410px) {
   .cardpsycho {
     height: 100%;

@@ -34,8 +34,17 @@ const CardPsycho = ({ psycho }) => {
         </div>
         <img src={images.Ava} alt="Ava" />
       </div>
-      <span style={{ marginBottom: 12 }}></span>
-      <h3>{shortenedDesc}</h3>
+      {psycho.description && (
+        <div className="cardpsycho-description">
+          <span style={{ marginBottom: 12 }}></span>
+          <h3>{shortenedDesc}</h3>
+        </div>
+      )}
+    
+      {/* <span style={{ marginBottom: 12 }}></span>
+      <div className="cardpsycho-rating">
+
+      </div> */}
     </div>
   );
 };

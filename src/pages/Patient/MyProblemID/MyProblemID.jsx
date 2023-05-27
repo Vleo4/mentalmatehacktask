@@ -2,14 +2,13 @@ import "./MyProblemID.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
 import { Alert, TopLoader } from "../../../components";
-import { Problem, Specialist, Statement } from "../../../components/index.js";
+import { Problem, Specialist, Statement,ProblemInput } from "../../../components/index.js";
 import {
   closeProblemAPI,
   editProblemAPI,
   getMyProblemIDApi,
 } from "../../../api/apiPatient.js";
 import { useParams } from "react-router-dom";
-import ProblemInput from "../../../components/ProblemInput/ProblemInput.jsx";
 import { digits, emailRegex } from "../../../constants/index.js";
 const MyProblemID = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -137,8 +136,8 @@ const MyProblemID = () => {
                       onClick={() => {
                         setIsLoading(true);
                         closeProblemAPI(id);
-
-                        setTimeout(fetchProblem(), 1000);
+                        fetchProblem();
+                        fetchProblem();
                         setIsLoading(false);
                       }}
                     >
@@ -149,7 +148,7 @@ const MyProblemID = () => {
                   </div>
                 )}
 
-                {problem && !problem.executor && problem.answers > 0 && (
+                {problem && !problem.executor && problem.answers.length > 0 && (
                   <>
                     <div className="problem__container_peoples">Заявки:</div>
                     {problem.answers.map((data) => (

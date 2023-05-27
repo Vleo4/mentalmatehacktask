@@ -6,6 +6,7 @@ import { Card, Loader, TopLoader } from "../../../components";
 import images from "../../../constants/images";
 import { getMyProblemsApi } from "../../../api/apiPatient.js";
 import { Link } from "react-router-dom";
+import Search from "../../../components/Search/Search.jsx";
 
 const MyProblems = () => {
   useEffect(() => {
@@ -34,17 +35,18 @@ const MyProblems = () => {
     setIsDropdownOpen(false);
   };
   const [problems, setProblems] = useState([]);
+  const [problemsSearch,setProblemsSearch]=useState([]);
   useEffect(() => {
     const getProblems = async () => {
       setIsLoading(true);
       const data = await getMyProblemsApi();
       setProblems(data);
+      setProblemsSearch(data);
       console.log(data);
       setIsLoading(false);
     };
     getProblems();
   }, []);
-
   // ---------------------------------------------------------------------------
   return (
     <div className="problems">
@@ -56,10 +58,13 @@ const MyProblems = () => {
           </div>
         ) : (
           <div className="problems__container-content">
+            <div className="problems__container-content_search">
             <h1>Мої проблеми</h1>
+            <Search problems={problems} setProblemsSearch={setProblemsSearch}/>
+            </div>
             <span></span>
             <div className="problems__container-content_totaldrop">
-              <h4>Загалом: {problems && problems.length}</h4>
+              <h4>Загалом: {problemsSearch && problemsSearch.length}</h4>
               <div className="problems__container-content_totaldrop-dropdown">
                 <button onClick={toggleDropdown}>
                   {selectedOption}{" "}
@@ -91,7 +96,7 @@ const MyProblems = () => {
                 </div>
               </div>
             </div>
-            {problems.length == 0 && (
+            {problemsSearch.length == 0 && (
               <div className="none">
                 <h4>Наразі на цій сторінці немає створених проблем</h4>
                 <Link
@@ -103,8 +108,8 @@ const MyProblems = () => {
               </div>
             )}
             <div className="problems__container-content_cards">
-              {problems &&
-                problems.map((problem, index) => (
+              {problemsSearch.length>0 &&
+                  problemsSearch.map((problem, index) => (
                   <Card key={index} problem={problem} />
                 ))}
             </div>

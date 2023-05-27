@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import images from "../../../constants/images";
-import { Card, CardPsycho, Loader, TopLoader } from "../../../components";
+import { CardPsycho, Loader, TopLoader } from "../../../components";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
 import { psychosListApi } from "../../../api/apiPatient";

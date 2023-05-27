@@ -6,6 +6,8 @@ import { isPsycho } from "../../../api/apiPublic.js";
 import { Card, Loader, TopLoader } from "../../../components/index.js";
 import images from "../../../constants/images.js";
 import {getAppliedApi} from "../../../api/apiPsycho.js";
+import {getAppliedUserApi} from "../../../api/apiPatient.js";
+import Search from "../../../components/Search/Search.jsx";
 
 const Approved = () => {
   useEffect(() => {
@@ -14,16 +16,20 @@ const Approved = () => {
     }
   }, [isAuth()]);
   const [problems, setProblems] = useState([]);
+  const [problemsSearch, setProblemsSearch] = useState([]);
+
   useEffect(() => {
     const getProblems = async () => {
       setIsLoading(true);
       if (isPsycho()) {
         const data = await getAppliedApi();
         setProblems(data);
+        setProblemsSearch(data);
         console.log(data);
       } else {
-        const data = await getAppliedApi();
+        const data = await getAppliedUserApi();
         setProblems(data);
+        setProblemsSearch(data);
       }
       setIsLoading(false);
     };
@@ -55,10 +61,13 @@ const Approved = () => {
           </div>
         ) : (
           <div className="problems__container-content">
-            <h1>Узгоджені проблеми</h1>
+            <div className="problems__container-content_search">
+              <h1>Узгоджені проблеми</h1>
+              <Search problems={problems} setProblemsSearch={setProblemsSearch}/>
+            </div>
             <span></span>
             <div className="problems__container-content_totaldrop">
-              <h4>Загалом: {problems ? problems.length : "0"}</h4>
+              <h4>Загалом: {problemsSearch ? problemsSearch.length : "0"}</h4>
               <div className="problems__container-content_totaldrop-dropdown">
                 <button onClick={toggleDropdown}>
                   {selectedOption}{" "}
@@ -90,14 +99,14 @@ const Approved = () => {
                 </div>
               </div>
             </div>
-              {!problems && (
+              {!problemsSearch && (
                 <div className="none">
                   <h4>Наразі на цій сторінці немає жодних узгоджених проблем.</h4>
                 </div>
               )}
             <div className="problems__container-content_cards">
-              {problems &&
-                problems.map((problem, index) => (
+              {problemsSearch &&
+                  problemsSearch.map((problem, index) => (
                   <Card key={index} problem={problem} />
                 ))}
             </div>

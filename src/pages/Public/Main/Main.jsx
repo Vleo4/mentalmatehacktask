@@ -3,7 +3,6 @@ import { isAuth } from "../../../api/AuthContext.jsx";
 import "../Login/Login.css";
 import { Link } from "react-router-dom";
 import { isPsycho } from "../../../api/apiPublic.js";
-import { CardPsycho } from "../../../components";
 
 const Main = () => {
   return (

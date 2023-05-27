@@ -28,6 +28,12 @@
   flex-direction: column;
 }
 
+.problems__container-content_search{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .problems__container-content h1 {
   font-family: var(--font-mont);
   font-weight: 700;
@@ -160,6 +166,16 @@
   line-height: 29px;
   color: #ffffff;
 }
+
+@media screen and (max-width: 768px) {
+  .problems__container-content_search{
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+}
+
 @media screen and (max-width: 410px) {
   .problems__container-content h1 {
     font-size: 38px;
