@@ -8,56 +8,23 @@ import {onFailure, onSuccess, registerApi} from "../../../api/apiPublic.js";
 import {isAuth} from "../../../api/AuthContext.jsx";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {updatePsycho} from "../../../api/apiPsycho.js";
+import {digits, emailRegex, languages} from "../../../constants/index.js";
 
 const Register = () => {
-    const languages = [
-        "Англійська",
-        "Арабська",
-        "Бенгальська",
-        "Бірманська",
-        "Гінді",
-        "Грецька",
-        "Гуджараті",
-        "Іспанська",
-        "Італійська",
-        "Каннада",
-        "Китайська",
-        "Корейська",
-        "Кхмерська",
-        "Маратхі",
-        "Нідерландська",
-        "Німецька",
-        "Панджабі",
-        "Південно-міньська",
-        "Польська",
-        "Португальська",
-        "Румунська",
-        "Сингальська",
-        "Суахілі",
-        "Тамільська",
-        "Турецька",
-        "Українська",
-        "Урду",
-        "Узбецька",
-        "Французька",
-        "Яванська",
-        "Японська"
-    ];
-    const [lang,setLang]=useState("");
+    const [lang,setLang]=useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const handleOptionClick = (option) => {
         if(!lang.includes(option)) {
-            if (lang && !lang.includes(option)) {
-                setLang(lang + ", " + option);
-            } else {
-                setLang(option);
+            if (lang) {
+                setLang([...lang,option]);
             }
+        }
+        else{
+            setLang(lang.filter(item => item !== option));
         }
         setIsDropdownOpen(false);
     };
     const isMobile = useResizer();
-    const digits = /^[0-9]*$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [part, setPart] = useState(1);
     const [button, setButton] = useState(false);
     const [button3, setButton3] = useState(false);
@@ -185,7 +152,7 @@ const Register = () => {
             saveToLocalStorage("REFRESH_TOKEN", data.data.refresh);
             setPart(part+1);
         } else {
-            setAlertTxt("Email already exists");
+            setAlertTxt("Email or username already exists");
             setAlert(true);
         }
     }
@@ -214,8 +181,9 @@ const Register = () => {
         else if(!alert) {
             if (part === 3) {
                 const perspective = perspectives.join(', ');
+                const langs=lang.join(', ');
                 const contacts=number+", "+mail;
-                updatePsycho(name, desc, files, "UNSKILL", perspective, lang, contacts,age).then();
+                updatePsycho(name, desc, files, "UNSKILL", perspective, langs, contacts,age).then();
             } else if (part === 1 &&(isPsycho === false || isPsycho === true)) {
                 setPart(part + 1)
             }
@@ -576,7 +544,7 @@ const Register = () => {
                                             setIsDropdownOpen(!isDropdownOpen);
                                         }}
                                     >
-                                        <span>{lang}</span>
+                                        <span>{lang.join(', ')}</span>
                                         <img
                                             src={images.Dropdown}
                                             alt="ArrowDownFilter"

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
 import { TopLoader } from "../../../components";
 import {Problem} from "../../../components/index.js";
-import {getProblemsApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
+import {getAppliedApi, getProblemsApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
 import {useParams} from "react-router-dom";
-import {getMyProblemsApi} from "../../../api/apiPatient.js";
+import jwtDecode from "jwt-decode";
+import {getFromLocalStorage} from "../../../api/tokenStorage.js";
 
 const ProblemID = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,20 +23,23 @@ const ProblemID = () => {
     const fetchProblem = async () => {
       setIsLoading(true);
       const data = await getProblemsApi();
+      let data3;
       data.map((prob)=>{
         if(prob.id==id){
           setProblem(prob)
+          data3=prob;
         }
       })
+
       setTimeout(() => setIsLoading(false), 600);
     };
     fetchProblem();
   },[]);
   const answer= async ()=> {
-    const data=await psychoAnswerAPI(id);
-    console.log(data);
+    await psychoAnswerAPI(id);
   }
-
+  const accessToken = getFromLocalStorage("ACCESS_TOKEN");
+  const userId = jwtDecode(accessToken).user_id;
   return (
     <div className="problem">
       {isLoading ? (
@@ -47,8 +51,9 @@ const ProblemID = () => {
             <div className="problemId__button white" onClick={answer}>
               Допомогти
             </div>
-            <div className="problemId__button white">
-              Відмовитися
+            {problem&&problem.executor===userId&&<>
+            <div className="problemId__button green">
+                  Заявку прийнято
             </div>
             <div  className="problem__container_peoples">
             Контактні дані:
@@ -67,11 +72,13 @@ const ProblemID = () => {
                 <span>@p3edo</span>
               </div>
             </div>
+              <div className="problemId__button white">
+                Відмовитися
+              </div>
+            </>
+            }
             <div className="problemId__button orange">
               Заявку надіслано
-            </div>
-            <div className="problemId__button green">
-              Заявку прийнято
             </div>
           </div>
         </div>

@@ -5,9 +5,9 @@ import "./Profile.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
-import { TopLoader } from "../../../components";
-import {profileApi, updatePsycho} from "../../../api/apiPsycho.js";
-
+import { Alert, TopLoader } from "../../../components";
+import { profileApi, updatePsycho } from "../../../api/apiPsycho.js";
+import { emailRegex, languages } from "../../../constants/index.js";
 const Profile = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,52 +40,15 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-
-  // -----------------------EDIT-------------------------------
-
-  const languages = [
-    "Англійська",
-    "Арабська",
-    "Бенгальська",
-    "Бірманська",
-    "Гінді",
-    "Грецька",
-    "Гуджараті",
-    "Іспанська",
-    "Італійська",
-    "Каннада",
-    "Китайська",
-    "Корейська",
-    "Кхмерська",
-    "Маратхі",
-    "Нідерландська",
-    "Німецька",
-    "Панджабі",
-    "Південно-міньська",
-    "Польська",
-    "Португальська",
-    "Румунська",
-    "Сингальська",
-    "Суахілі",
-    "Тамільська",
-    "Турецька",
-    "Українська",
-    "Урду",
-    "Узбецька",
-    "Французька",
-    "Яванська",
-    "Японська",
-  ];
-
   const [updatedLang, setUpdatedLang] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleOptionClick = (option) => {
     if (!updatedLang.includes(option)) {
-      if (updatedLang && !updatedLang.includes(option)) {
-        setUpdatedLang(updatedLang + ", " + option);
-      } else {
-        setUpdatedLang(option);
+      if (updatedLang) {
+        setUpdatedLang([...updatedLang, option]);
       }
+    } else {
+      setUpdatedLang(updatedLang.filter((item) => item !== option));
     }
     setIsDropdownOpen(false);
   };
@@ -139,13 +102,13 @@ const Profile = () => {
 
   useEffect(() => {
     if (user) {
-      setUpdatedName(user.psycho.name);
-      setUpdatedAge(user.psycho.age);
-      setUpdatedPerspectives(user.psycho.perspective.split(", "));
-      setUpdatedLang(user.psycho.lang);
-      setUpdatedDescription(user.psycho.description);
-      setUpdatedEmail(user.psycho.contacts.split(", ")[1]);
-      setUpdatedPhone(user.psycho.contacts.split(", ")[0]);
+      setUpdatedName(user.name);
+      setUpdatedAge(user.age);
+      setUpdatedPerspectives(user.perspective.split(", "));
+      setUpdatedLang(user.lang.split(", "));
+      setUpdatedDescription(user.description);
+      setUpdatedEmail(user.contacts.split(", ")[1]);
+      setUpdatedPhone(user.contacts.split(", ")[0]);
     }
   }, [user]);
 
@@ -165,39 +128,57 @@ const Profile = () => {
 
   const handleSave = async () => {
     setIsLoading(true);
+    setIsEditing(false);
     // Call updatePsycho with updated data
     await updatePsycho(
       updatedName,
       updatedDescription,
       updatedCv,
-      user.psycho.skills,
+      user.skills,
       updatedPerspectives.join(", "),
-      updatedLang,
+      updatedLang.join(", "),
       updatedPhone + ", " + updatedEmail,
       updatedAge
     );
-    // Update user state with new data
-    setUser((prevUser) => ({
-      ...prevUser,
-      psycho: {
-        ...prevUser.psycho,
-        name: updatedName,
-        age: updatedAge,
-        cv: updatedCv,
-        perspective: updatedPerspectives.join(", "),
-        lang: updatedLang,
-        description: updatedDescription,
-        contacts: updatedPhone + ", " + updatedEmail,
-      },
-    }));
     // Exit editing mode
-    setIsEditing(false);
     fetchUser();
     setIsLoading(false);
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [text, setText] = useState("Заповність усі поля");
+  const handleCloseAlert = () => {
+    setShowAlert(!showAlert);
+  };
+  const updateProfile = async () => {
+    if (
+      !updatedName ||
+      !updatedDescription ||
+      !user.skills ||
+      !updatedPerspectives ||
+      !updatedLang ||
+      !updatedPhone ||
+      !updatedEmail ||
+      !updatedAge
+    ) {
+      setShowAlert(true);
+      setText("Заповність усі поля");
+    } else if (!emailRegex.test(updatedEmail)) {
+      setShowAlert(true);
+      setText("Не коректна електронна адреса");
+    } else {
+      setShowAlert(false);
+      handleSave();
+    }
+  };
+
   return (
     <div className="profile">
+      <Alert
+        text={text}
+        handleCloseAlert={handleCloseAlert}
+        showAlert={showAlert}
+      />
       {isLoading ? (
         <TopLoader />
       ) : (
@@ -205,15 +186,26 @@ const Profile = () => {
           <>
             <div className="profile__container-mainInfo">
               <div className="profile__container-mainInfo_text">
-                <p className="profile__container-text-p">
-                  З нами від{" "}
-                  {user &&
-                    user.psycho.join_date
-                      .split("T")[0]
-                      .split("-")
-                      .reverse()
-                      .join("-")}
-                </p>
+                <div className="withus-block">
+                  <p className="profile__container-text-p">
+                    З нами від{" "}
+                    {user &&
+                      user.join_date
+                        .split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                  </p>
+                  {isEditing ? (
+                    <p className="edit-text" onClick={updateProfile}>
+                      <img src={images.Edit} alt="Edit" /> Зберегти
+                    </p>
+                  ) : (
+                    <p className="edit-text" onClick={handleEdit}>
+                      <img src={images.Edit} alt="Edit" /> Редагувати
+                    </p>
+                  )}
+                </div>
                 <div className="edit">
                   {isEditing ? (
                     <>
@@ -226,16 +218,7 @@ const Profile = () => {
                       />
                     </>
                   ) : (
-                    <h1>{user && user.psycho.name}</h1>
-                  )}
-                  {isEditing ? (
-                    <p className="edit-text" onClick={handleSave}>
-                      <img src={images.Edit} alt="Edit" /> Зберегти
-                    </p>
-                  ) : (
-                    <p className="edit-text" onClick={handleEdit}>
-                      <img src={images.Edit} alt="Edit" /> Редагувати
-                    </p>
+                    <h1>{user && user.name}</h1>
                   )}
                 </div>
                 <h2 style={{ marginTop: 12 }}>Психолог</h2>
@@ -255,7 +238,7 @@ const Profile = () => {
                       />
                     </>
                   ) : (
-                    <span>{user && user.psycho.age}</span>
+                    <span>{user && user.age}</span>
                   )}
                 </div>
                 <div className="cv">
@@ -284,7 +267,7 @@ const Profile = () => {
                     </>
                   ) : (
                     <a
-                      href={user && user.psycho.cv}
+                      href={user && user.cv}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -294,7 +277,7 @@ const Profile = () => {
                 </div>
                 <div className="help" style={{ marginTop: 16 }}>
                   <p className="profile__container-text-p">Допоміг</p>
-                  <span>{user && user.psycho.total_helped}</span>
+                  <span>{user && user.total_helped}</span>
                   <p className="profile__container-text-p">людям</p>
                 </div>
               </div>
@@ -307,7 +290,7 @@ const Profile = () => {
               <div className="edit">
                 <h2>Контактні дані:</h2>
                 {isEditing ? (
-                  <p className="edit-text" onClick={handleSave}>
+                  <p className="edit-text" onClick={updateProfile}>
                     <img src={images.Edit} alt="Edit" /> Зберегти
                   </p>
                 ) : (
@@ -333,7 +316,7 @@ const Profile = () => {
                     />
                   </>
                 ) : (
-                  <span>{user && user.psycho.contacts.split(", ")[1]}</span>
+                  <span>{user && user.contacts.split(", ")[1]}</span>
                 )}
               </div>
               <div className="phone">
@@ -353,7 +336,7 @@ const Profile = () => {
                   </>
                 ) : (
                   <span style={{ whiteSpace: "nowrap" }}>
-                    {user && user.psycho.contacts.split(", ")[0]}
+                    {user && user.contacts.split(", ")[0]}
                   </span>
                 )}
               </div>
@@ -363,7 +346,7 @@ const Profile = () => {
               <div className="edit">
                 <h2>Напрями:</h2>
                 {isEditing ? (
-                  <p className="edit-text" onClick={handleSave}>
+                  <p className="edit-text" onClick={updateProfile}>
                     <img src={images.Edit} alt="Edit" /> Зберегти
                   </p>
                 ) : (
@@ -426,7 +409,7 @@ const Profile = () => {
               ) : (
                 <ul>
                   {user &&
-                    user.psycho.perspective
+                    user.perspective
                       .split(", ")
                       .map((pers, index) => <li key={index}>{pers.trim()}</li>)}
                 </ul>
@@ -439,7 +422,7 @@ const Profile = () => {
                 <h2>Знання мов:</h2>
 
                 {isEditing ? (
-                  <p className="edit-text" onClick={handleSave}>
+                  <p className="edit-text" onClick={updateProfile}>
                     <img src={images.Edit} alt="Edit" /> Зберегти
                   </p>
                 ) : (
@@ -456,11 +439,12 @@ const Profile = () => {
                   >
                     <div
                       className="profile__dropdown-drop"
+                      style={{ overflow: "hidden" }}
                       onClick={() => {
                         setIsDropdownOpen(!isDropdownOpen);
                       }}
                     >
-                      <span>{updatedLang}</span>
+                      <span>{updatedLang.join(", ")}</span>
                       <img
                         src={images.Dropdown}
                         alt="ArrowDownFilter"
@@ -494,7 +478,7 @@ const Profile = () => {
               ) : (
                 <ul>
                   {user &&
-                    user.psycho.lang
+                    user.lang
                       .split(", ")
                       .map((language, index) => (
                         <li key={index}>{language.trim()}</li>
@@ -507,7 +491,7 @@ const Profile = () => {
               <div className="edit">
                 <h2>Додаткова інформація</h2>
                 {isEditing ? (
-                  <p className="edit-text" onClick={handleSave}>
+                  <p className="edit-text" onClick={updateProfile}>
                     <img src={images.Edit} alt="Edit" /> Зберегти
                   </p>
                 ) : (
@@ -530,9 +514,7 @@ const Profile = () => {
                   </div>
                 </>
               ) : (
-                <p style={{ marginTop: 24 }}>
-                  {user && user.psycho.description}
-                </p>
+                <p style={{ marginTop: 24 }}>{user && user.description}</p>
               )}
             </div>
             <button className="logout" onClick={logOut}>

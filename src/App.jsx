@@ -15,10 +15,11 @@ import {
   MyProblems,
   Problems,
   Profile,
+  PsychoPage,
   PsychoProfile,
   Register,
 } from "./pages/index.js";
-import { Alert, Navbar } from "./components";
+import { Navbar } from "./components";
 import ProblemID from "./pages/Psycho/ProblemID/ProblemID.jsx";
 import { isPsycho } from "./api/apiPublic.js";
 const Layout = () => {
@@ -28,7 +29,6 @@ const Layout = () => {
 
   return (
     <>
-    <Alert/>
       {!isDisplay && <Navbar />}
       <div className="main-content">
         <Routes>
@@ -43,6 +43,7 @@ const Layout = () => {
           {/* PATIENT */}
           <Route path="/psycho-profile/:id" exact element={<PsychoProfile />} />
           <Route path="/problem/create" exact element={<CreateProblem />} />
+          <Route path="/psychos" exact element={<PsychoPage />} />
 
           {/* UNIVERSAL */}
           <Route

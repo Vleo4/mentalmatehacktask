@@ -1,0 +1,10 @@
+.psycho__container-content_cards{
+    justify-content: center;
+    align-items: center;
+    grid-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 325px));
+    max-width: 1588px;
+    width: 100%;
+    margin-bottom: 100px;
+}

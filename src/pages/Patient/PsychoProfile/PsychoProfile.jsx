@@ -86,7 +86,7 @@ const PsychoProfile = () => {
               <span>{psycho &&psycho.contacts.split(", ")[0]}</span>
             </div>
             <div className="phone">
-              <p className="profile__container-text-p">Номер телефону:</p>
+                <p className="profile__container-text-p">Номер телефону:</p>
               <span style={{ whiteSpace: "nowrap" }}>
                 {psycho && psycho.contacts.split(", ")[1]}
               </span>

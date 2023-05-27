@@ -8,4 +8,5 @@ import CreateProblem from "./Patient/CreateProblem/CreateProblem";
 import MyProblemID from "./Patient/MyProblemID/MyProblemID";
 import PsychoProfile from "./Patient/PsychoProfile/PsychoProfile";
 import MyProblems from "./Patient/MyProblems/MyProblems";
-export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems };
+import PsychoPage from "./Patient/PsychoPage/PsychoPage";
+export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems,PsychoPage };
