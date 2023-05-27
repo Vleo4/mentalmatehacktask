@@ -7,4 +7,5 @@ import Statement from "./Statement/Statement.jsx";
 import Alert from './Alert/Alert';
 import CardPsycho from './CardPsycho/CardPsycho'
 import Specialist from "./Specialist/Specialist.jsx";
-export { Loader, TopLoader, Card, Navbar, Problem, Statement, Alert , CardPsycho, Specialist };
+import ProblemInput from "./ProblemInput/ProblemInput.jsx";
+export { Loader, TopLoader, Card, Navbar, Problem, Statement, Alert , CardPsycho, Specialist,ProblemInput };

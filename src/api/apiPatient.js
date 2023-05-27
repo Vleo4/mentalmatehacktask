@@ -50,19 +50,6 @@ export const closeProblemAPI = async (id) => {
         return error.response;
     }
 }
-export const getPendingPatientApi = async () => {
-    try {
-        const response = await axios.get(url + `problem/pending/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + accessToken
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
 export const getMyProblemsApi = async () => {
     try {
         const response = await axios.get(url + `problems/`, {
@@ -104,18 +91,6 @@ export const approveProblemAPI = async (answer_id, is_approved) => {
         return error.response;
     }
 }
-export const getProblemUserApi = async (id) => {
-    try {
-        const response = await axios.get(url + `problem/` + id + '/', {
-            headers: {
-                Authorization: 'Bearer ' + accessToken
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 export const psychosListApi = async () => {
     try {
@@ -126,6 +101,18 @@ export const psychosListApi = async () => {
             },
         });
 
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const getAppliedUserApi = async () => {
+    try {
+        const response = await axios.get(url + `problem/pending/`,{
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
         return response.data;
     } catch (error) {
         console.log(error);

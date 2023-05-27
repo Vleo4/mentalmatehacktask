@@ -2,9 +2,8 @@ import '../../Patient/MyProblemID/MyProblemID.css';
 import "./ProblemID.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
-import { TopLoader } from "../../../components";
-import {Problem} from "../../../components/index.js";
-import {getAppliedApi, getProblemsApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
+import {Problem, TopLoader} from "../../../components/index.js";
+import {getProblemPsychoApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
 import {useParams} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {getFromLocalStorage} from "../../../api/tokenStorage.js";
@@ -19,24 +18,18 @@ const ProblemID = () => {
   }, [isAuth()]);
 
   const [problem,setProblem]=useState(null);
+  const fetchProblem = async () => {
+    setIsLoading(true);
+    const data = await getProblemPsychoApi(id);
+    setProblem(data);
+    setTimeout(() => setIsLoading(false), 600);
+  };
   useEffect(()=>{
-    const fetchProblem = async () => {
-      setIsLoading(true);
-      const data = await getProblemsApi();
-      let data3;
-      data.map((prob)=>{
-        if(prob.id==id){
-          setProblem(prob)
-          data3=prob;
-        }
-      })
-
-      setTimeout(() => setIsLoading(false), 600);
-    };
     fetchProblem();
   },[]);
   const answer= async ()=> {
     await psychoAnswerAPI(id);
+    fetchProblem();
   }
   const accessToken = getFromLocalStorage("ACCESS_TOKEN");
   const userId = jwtDecode(accessToken).user_id;
@@ -48,10 +41,11 @@ const ProblemID = () => {
         <div className="problem__container">
           <div className="problem__container__container">
             {problem&&<Problem problem={problem}/>}
+            {problem&&problem.is_answered===false&&
             <div className="problemId__button white" onClick={answer}>
               Допомогти
-            </div>
-            {problem&&problem.executor===userId&&<>
+            </div>}
+            {problem&&problem.executor&&<>
             <div className="problemId__button green">
                   Заявку прийнято
             </div>
@@ -72,14 +66,15 @@ const ProblemID = () => {
                 <span>@p3edo</span>
               </div>
             </div>
-              <div className="problemId__button white">
-                Відмовитися
-              </div>
             </>
             }
-            <div className="problemId__button orange">
+            {problem&&problem.is_answered===true&&!problem.executor&&<><div className="problemId__button orange">
               Заявку надіслано
             </div>
+            <div className="problemId__button white">
+            Відмовитися
+          </div>
+          </>}
           </div>
         </div>
       )}
