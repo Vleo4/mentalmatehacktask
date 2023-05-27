@@ -20,7 +20,6 @@ const Layout = () => {
     location.pathname === "/login" ||
     location.pathname === "/register";
 
-  const isAuthorize = isAuth();
   return (
     <>
       {!isDisplay && <Navbar />}
