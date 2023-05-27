@@ -1,9 +1,8 @@
-import checkIsTokenExpiry from './tokenExpiry.js';
+import checkIsTokenExpiry from './tokenExpiry';
 import {
     clearStorages,
     getFromLocalStorage,
-} from './tokenStorage.js';
-/* import {REFRESH_TOKEN} from "./token.js"; */
+} from './tokenStorage';
 import {refresh} from "./api.js";
 
 export const isAuth = () => {

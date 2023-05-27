@@ -1,0 +1,106 @@
+.main {
+  min-height: 100vh;
+  background: url("../../assets/Ocean.svg");
+  background-size: cover;
+}
+
+.main__navbar {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 32px;
+}
+.navbar_logo {
+  margin-left: 5%;
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+}
+.navbar_menu {
+  display: flex;
+  gap: 8px;
+  margin-right: 3vh;
+}
+
+.navbar_login {
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  height: 36px;
+  padding: 8px 16px 8px 16px;
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+}
+.navbar_register {
+  background: #ffffff;
+  border-radius: 6px;
+  height: 36px;
+  padding: 8px 16px 8px 16px;
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #2c343e;
+}
+.main__info {
+  align-items: center;
+  color: #ffffff;
+  font-family: var(--font-play);
+  display: flex;
+  align-items: center;
+  height: 80vh;
+  margin-left: 5%;
+}
+.main_descryption {
+  width: 730px;
+  align-items: center;
+}
+.main_copy {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+}
+.main_content {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 64px;
+}
+.main_company_info {
+  padding-top: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+}
+.main_menu {
+  display: flex;
+  gap: 24px;
+}
+.main_menu div {
+  background: #2c343e;
+  border-radius: 6px;
+  font-family: var(--font-mont);
+  width: 353px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.main_comment {
+  background: rgba(44, 52, 62, 0.59);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 6px;
+  width: 405px;
+  height: 200px;
+}
