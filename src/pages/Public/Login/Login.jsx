@@ -4,7 +4,7 @@ import images from "../../../constants/images.js";
 import useResizer from "../../../constants/isMobile.js";
 import { saveToLocalStorage } from "../../../api/tokenStorage.js";
 import { Link } from "react-router-dom";
-import { loginApi, onFailure, onSuccess } from "../../../api/api.js";
+import { loginApi, onFailure, onSuccess } from "../../../api/apiPublic.js";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { isAuth } from "../../../api/AuthContext.jsx";
 

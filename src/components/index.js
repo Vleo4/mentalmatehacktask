@@ -4,4 +4,5 @@ import Card from './Card/Card';
 import Navbar from './Navbar/Navbar';
 import Problem from "./Problem/Problem";
 import Statement from "./Statement/Statement.jsx";
-export { Loader, TopLoader, Card, Navbar, Problem, Statement };
+import Alert from './Alert/Alert';
+export { Loader, TopLoader, Card, Navbar, Problem, Statement, Alert };

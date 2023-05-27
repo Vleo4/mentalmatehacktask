@@ -6,24 +6,24 @@
 
  ПИШЕМО ТУТ І ВИКОРИСТОВУЄМО БУДЬ-ДЕ */
 
- html,
- body {
-   margin: 0;
-   height: 100%;
- }
- 
- .app {
-   display: flex;
-   flex-direction: column;
-   min-height: 100vh;
- }
- 
- .main-content {
-   flex-grow: 1;
- }
- 
- .foooter {
-   margin-top: auto;
- }
- 
- 
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: url("../src/assets/Ocean.svg") no-repeat fixed;
+  background-size: cover;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+.foooter {
+  margin-top: auto;
+}

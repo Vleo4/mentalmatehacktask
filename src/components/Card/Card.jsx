@@ -1,19 +1,19 @@
 import "./Card.css";
 import images from "../../constants/images";
 
-const Card = () => {
-  /* const shortenedTitle = title.length > 80 ? title.slice(0, 80) + "..." : title; */
+const Card = ({problem}) => {
+    const shortenedTitle = problem.essence.length > 80 ? problem.essence.slice(0, 80) + "..." : problem.essence;
   return (
-    <div className="card">
+    <div className="card"  onClick={()=>{window.location.href='/problem/'+problem.id}}>
       <div className="card__content">
         <div className="card__content-category">
           <img src={images.CategoryIco} alt="Category" />
-          <h2>CATEGORY</h2>
+          <h2>{problem.category}</h2>
         </div>
-        <h2>8QzXagpHX3piS2eD0bkVPsNInHDTCqmK3L</h2>
-        <p style={{ marginTop: 12 }}>
-          o7MMMSsA9v8vzjboi7OQVWCkYCKGhKWc0BuwuvLbvPnel3rPv6pCzGk7r4CAMwXI0NOlyPPh2x6CvZoG
-        </p>
+        <h2>{problem.title}</h2>
+          <p style={{ marginTop: 12 }}>
+              {shortenedTitle}
+          </p>
       </div>
       <div className="card__date">
         <span></span>

@@ -1,4 +1,5 @@
 import Ocean from "../assets/Ocean.svg";
+import CrossIcon from '../assets/CrossIcon.svg';
 import OpenEye from "../assets/Login/OpenEye.svg";
 import CloseEye from "../assets/Login/CloseEye.svg";
 import LoginPin from "../assets/Login/LoginPin.svg";
@@ -13,13 +14,6 @@ import Delete from "../assets/Login/Delete.svg";
 import Resume from "../assets/Login/Resume.svg";
 import Dropdown from "../assets/Login/Dropdown.svg";
 
-//Main
-import Commas from "../assets/Main/comas.svg";
-import Commasreverse from "../assets/Main/comasreverse.svg";
-import Profile1 from "../assets/Main/profile1.svg";
-import Profile2 from "../assets/Main/profile2.svg";
-import Profile3 from "../assets/Main/profile3.svg";
-
 //Profile
 import Avatar from '../assets/Profile/Vusatiy.png';
 import Edit from '../assets/Profile/Edit.svg';
@@ -32,6 +26,7 @@ import Psycho from '../assets/Problems/Psycho.svg';
 import CategoryIco from '../assets/Card/CategoryIco.svg';
 
 export default {
+  CrossIcon,
   Ocean,
   OpenEye,
   CloseEye,
@@ -46,13 +41,6 @@ export default {
   Resume,
   Dropdown,
   IndiaBlack,
-
-  //Main
-  Commas,
-  Profile1,
-  Profile2,
-  Profile3,
-  Commasreverse,
 
   // Profile
   Avatar,
