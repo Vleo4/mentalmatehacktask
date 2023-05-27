@@ -7,44 +7,13 @@ from psycho.serializers import *
 
 
 class ProfileAPIView(generics.RetrieveAPIView):
+    serializer_class = ProfilePsychoUserSerializer
+
     def retrieve(self, request, *args, **kwargs):
         try:
             psycho_x_id = kwargs['pk']
             psycho_x = get_object_or_404(PsychoUser, id=psycho_x_id)
-
-            return Response({
-                "psycho": PsychoUserSerializer(psycho_x, context=self.get_serializer_context()).data
-            })
-
-        except Http404:
-            return Response({'error': 'Psycho not found'}, status=status.HTTP_404_NOT_FOUND)
-
-
-class ProfileUpdateAPIView(generics.UpdateAPIView):
-    serializer_class = PsychoUserUpdateSerializer
-    queryset = PsychoUser.objects.all()
-
-    def get_object(self):
-        user = self.request.user
-        return PsychoUser.objects.get(user=user)
-
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, status
-from rest_framework.response import Response
-from psycho.serializers import *
-
-
-class ProfileAPIView(generics.RetrieveAPIView):
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            psycho_x_id = kwargs['pk']
-            psycho_x = get_object_or_404(PsychoUser, id=psycho_x_id)
-
-            return Response({
-                "psycho": PsychoUserSerializer(psycho_x, context=self.get_serializer_context()).data
-            })
+            return Response(self.get_serializer(psycho_x).data)
 
         except Http404:
             return Response({'error': 'Psycho not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -305,12 +274,77 @@ class PsychoRetrieveJournalAPIView(generics.RetrieveAPIView):
             # check if the user is a psycho, filter by the journals where the psycho is in
             queryset = Journal.objects.filter(psycho__user=user_x)
         else:
-            # check if the user is a patient, filter by the journals where the patient is the user
-            queryset = Journal.objects.filter(patient=user_x)
+            return Response({"detail": "You are not authorized"},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
         return queryset
 
     def get_object(self):
         queryset = self.get_queryset()
         obj = get_object_or_404(queryset, pk=self.kwargs.get('pk'))
+        return obj
+
+
+class PsychoJournalListAPIView(generics.ListAPIView):
+    serializer_class = JournalSerializer
+
+    def get_queryset(self):
+        user_x = self.request.user
+        if user_x.is_psycho:
+            # check if the user is a psycho, filter by the journals where the psycho is in
+            queryset = Journal.objects.filter(psycho__user=user_x)
+        else:
+            return Response({"detail": "You are not authorized to update this problem."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+        return queryset
+
+class UserRetrieveJournalAPIView(generics.RetrieveAPIView):
+    serializer_class = JournalDetailSerializer
+
+    def get_object(self):
+        user = self.request.user
+        if user.is_psycho:
+            return Response({"detail": "You are not authorized to update this problem."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        return Journal.objects.get(patient=user)
+
+class CreateEmotionAPIView(generics.CreateAPIView):
+    serializer_class = EmotionCreateSerializer
+
+    def perform_create(self, serializer):
+        emotion = serializer.save(user=self.request.user)
+        journal = Journal.objects.get(patient=self.request.user)
+        journal.emotions.add(emotion)
+
+
+class UpdateEmotionAPIView(generics.UpdateAPIView):
+    serializer_class = EmotionCreateSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_psycho:
+            return Response({"detail": "You are not authorized to update this emotion."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        queryset = Emotion.objects.filter(user=self.request.user)
+        return queryset
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, pk=self.kwargs["pk"])
+        return obj
+
+
+class DestroyEmotionAPIView(generics.DestroyAPIView):
+    serializer_class = EmotionCreateSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_psycho:
+            return Response({"detail": "You are not authorized to destroy this emotion."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        queryset = Emotion.objects.filter(user=self.request.user)
+        return queryset
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, pk=self.kwargs["pk"])
         return obj

@@ -26,6 +26,9 @@ class RegisterSerializer(serializers.ModelSerializer):
                 user=user,
                 name=user.username
             )
+        else:
+            # if user is not a psycho, create a journal for him
+            journal = Journal.objects.create(patient=user)
 
         return user
 
@@ -108,6 +111,28 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = "__all__"
 
+
+class ProfilePsychoUserSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PsychoUser
+        fields = ['name', 'description', 'cv', 'skills', 'perspective',
+                  'lang', 'total_helped', 'contacts', 'user', 'age', 'join_date',
+                  'reviews', 'average_rating']
+
+    def get_reviews(self, obj):
+        reviews = Review.objects.filter(psycho=obj)
+        return ReviewSerializer(reviews, many=True).data
+
+    def get_average_rating(self, obj):
+        reviews = Review.objects.filter(psycho=obj)
+        if reviews.exists():
+            return sum([review.rating for review in reviews]) / reviews.count()
+        return 0
+
+
 class JournalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Journal
@@ -116,4 +141,17 @@ class JournalSerializer(serializers.ModelSerializer):
 class EmotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emotion
+        fields = "__all__"
+
+
+class EmotionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Emotion
+        fields = "__all__"
+
+class JournalDetailSerializer(serializers.ModelSerializer):
+    emotions = EmotionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Journal
         fields = "__all__"

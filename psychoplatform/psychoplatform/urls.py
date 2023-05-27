@@ -19,6 +19,8 @@ urlpatterns = [
     path('api/psycho/problems/', OpenProblemsListAPIView.as_view()),
     path('api/psycho/answer/<int:pk>/', PsychoApplyToProblem.as_view()),
     path('api/psycho/problems/applied/', PsychoAppliedProblemListAPIView.as_view()),
+    path('api/psycho/journal/<int:pk>/', PsychoRetrieveJournalAPIView.as_view()),
+    path('api/psycho/journals/', PsychoJournalListAPIView.as_view()),
     path('api/user/problem/create/', CreateProblemAPIView.as_view()),
     path('api/user/problem/approve/', ApproveExecutorAPIView.as_view()),
     path('api/user/problems/', UserProblemsListAPIView.as_view()),
@@ -27,5 +29,9 @@ urlpatterns = [
     path('api/user/problem/close/<int:pk>/', CloseProblemAPIView.as_view()),     #patch
     path('api/user/problem/update/<int:pk>/', UpdateProblemAPIView.as_view()),
     path('api/user/review/', ReviewPsychoAPIView.as_view()),
+    path('api/user/journal/', UserRetrieveJournalAPIView.as_view()),
+    path('api/user/emotion/create/', CreateEmotionAPIView.as_view()),
+    path('api/user/emotion/update/', UpdateEmotionAPIView.as_view()),
+    path('api/user/emotion/destroy/', DestroyEmotionAPIView.as_view()),
     path('api/google_login/', GoogleAuthAPIView.as_view())
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

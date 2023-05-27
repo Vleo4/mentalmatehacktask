@@ -112,9 +112,7 @@ class Emotion(models.Model):
 
 class Journal(models.Model):
     patient = models.ForeignKey(PlatformAbstractUser, on_delete=models.CASCADE)
-    entry = models.TextField()
     time_created = models.DateTimeField(auto_now_add=True)
-    is_shared = models.BooleanField(default=False)
     emotions = models.ManyToManyField(Emotion, blank=True)
     psycho = models.ManyToManyField(PsychoUser, blank=True, null=True)
 
