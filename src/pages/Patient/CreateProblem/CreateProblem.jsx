@@ -45,6 +45,7 @@ const CreateProblem = () => {
   const handleCloseAlert=()=>{
     setShowAlert(!showAlert);
   }
+  const [category,setCategory]=useState(1);
   const create= async ()=>{
     if(!title||!description||!conclusion||!number||!mail){
       setShowAlert(true);
@@ -57,7 +58,7 @@ const CreateProblem = () => {
     else {
       setShowAlert(false);
       const contacts = number + ", " + mail;
-      const response = await createProblemAPI(title, description, conclusion, contacts);
+      const response = await createProblemAPI(title, description, conclusion, contacts,category);
       window.location.href="/problem/"+response.data.id;
     }
   }
@@ -77,6 +78,7 @@ const CreateProblem = () => {
                               handleNumber={handleNumber}
                               conclusion={conclusion}
                               handleConclusion={handleConclusion}
+                              setCategory={setCategory}
                 />
                 <div className="problemId__button white" onClick={create}>
                   Створити

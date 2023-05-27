@@ -5,7 +5,6 @@ import { isAuth } from "../../../api/AuthContext";
 import {Problem, TopLoader} from "../../../components/index.js";
 import {getProblemPsychoApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
 import {useParams} from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import {getFromLocalStorage} from "../../../api/tokenStorage.js";
 
 const ProblemID = () => {
@@ -27,18 +26,18 @@ const ProblemID = () => {
   useEffect(()=>{
     fetchProblem();
   },[]);
+  console.log(problem)
   const answer= async ()=> {
     await psychoAnswerAPI(id);
     fetchProblem();
   }
   const accessToken = getFromLocalStorage("ACCESS_TOKEN");
-  const userId = jwtDecode(accessToken).user_id;
   return (
     <div className="problem">
       {isLoading ? (
         <TopLoader />
       ) : (
-        <div className="problem__container">
+        <div className={problem&&problem.executor?"problem__container accept":problem&&problem.is_answered?"problem__container sended":"problem__container"}>
           <div className="problem__container__container">
             {problem&&<Problem problem={problem}/>}
             {problem&&problem.is_answered===false&&

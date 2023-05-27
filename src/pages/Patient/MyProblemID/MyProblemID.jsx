@@ -122,8 +122,8 @@ const MyProblemID = () => {
               <>
                 {problem && <Problem problem={problem} />}
                 {problem && problem.is_closed == false && (
-                  <div className="problem__container_buttons">
-                    <div
+                    <div className="problem__container_buttons">
+                      <div
                       className="problem__container_button"
                       onClick={() => {
                         setIsEdit(!isEdit);
@@ -141,9 +141,7 @@ const MyProblemID = () => {
                         setIsLoading(false);
                       }}
                     >
-                      {problem && problem.is_closed === true
-                        ? "Видалити"
-                        : "Закрити"}
+                      Закрити
                     </div>
                   </div>
                 )}
@@ -151,12 +149,12 @@ const MyProblemID = () => {
                 {problem && !problem.executor && problem.answers.length > 0 && (
                   <>
                     <div className="problem__container_peoples">Заявки:</div>
-                    {problem.answers.map((data) => (
-                      <Statement key={data.id} data={data} />
+                    {problem.answers.map((answer) => (
+                      <Statement key={answer.id} data={answer} fetchProblem={fetchProblem} />
                     ))}
                   </>
                 )}
-                {problem && problem.answers.length === 0 && (
+                {problem && problem.answers.length === 0 &&!problem.executor&& (
                   <div className="problem__container_peoples">Немає заявок</div>
                 )}
                 {problem && problem.executor && (

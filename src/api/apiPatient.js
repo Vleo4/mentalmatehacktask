@@ -3,7 +3,7 @@ import axios from "axios";
 const url = "https://mentalmate.brainstormingapplication.com/api/user/";
 const accessToken = getFromLocalStorage("ACCESS_TOKEN");
 
-export const createProblemAPI = async (title, essence, conclusion, contacts, cat = 1) => {
+export const createProblemAPI = async (title, essence, conclusion, contacts, cat) => {
     try {
         return await axios.post(url + "problem/create/", {
             "title": title,
