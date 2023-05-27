@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
 import ProblemInput from "../../../components/ProblemInput/ProblemInput.jsx";
 import { createProblemAPI} from "../../../api/apiPatient.js";
+import {Alert} from "../../../components/index.js";
+import {digits, emailRegex} from "../../../constants/index.js";
 
 const CreateProblem = () => {
   const [title,setTitle]=useState('');
@@ -12,32 +14,59 @@ const CreateProblem = () => {
   const [mail,setMail]=useState('');
   const [conclusion,setConclusion]=useState('');
   const handleTitle=(e)=>{
-    setTitle(e.target.value)
+    if(e.target.value.length<80) {
+      setTitle(e.target.value)
+    }
   }
   const handleDescription=(e)=>{
-    setDescription(e.target.value)
+    if(e.target.value.length<400) {
+      setDescription(e.target.value)
+    }
   }
   const handleNumber=(e)=>{
-    setNumber(e.target.value)
+    if(digits.test(e.target.value)&&(e.target.value.length<15)) {
+      setNumber(e.target.value)
+    }
   }
   const handleMail=(e)=>{
-    setMail(e.target.value)
+      setMail(e.target.value)
   }
   const handleConclusion=(e)=>{
-    setConclusion(e.target.value)
+    if(e.target.value.length<400) {
+      setConclusion(e.target.value)
+    }
   }
   useEffect(() => {
     if (!isAuth()) {
       window.location.href = "/login";
     }
   }, [isAuth()]);
-  const create=()=>{
-    const contacts =number+", "+mail;
-    createProblemAPI(title,description,conclusion,contacts);
+  const [text,setText]=useState("Заповність усі поля");
+  const [showAlert, setShowAlert] = useState(false);
+  const handleCloseAlert=()=>{
+    setShowAlert(!showAlert);
   }
+  const create= async ()=>{
+    if(!title||!description||!conclusion||!number||!mail){
+      setShowAlert(true);
+      setText("Заповність усі поля");
+    }
+    else if(!emailRegex.test(mail)){
+      setShowAlert(true);
+      setText("Не коректна електронна адреса");
+    }
+    else {
+      setShowAlert(false);
+      const contacts = number + ", " + mail;
+      const response = await createProblemAPI(title, description, conclusion, contacts);
+      window.location.href="/problem/"+response.data.id;
+    }
+  }
+
   return (
       <div className="problem">
-            <div className="problem__container">
+       <Alert text={text} handleCloseAlert={handleCloseAlert} showAlert={showAlert} />
+        <div className="problem__container">
               <div className="problem__container__container">
                 <ProblemInput title={title}
                               handleTitle={handleTitle}

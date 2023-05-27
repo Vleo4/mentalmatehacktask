@@ -1,17 +1,16 @@
 import "./MyProblemID.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
-import { TopLoader } from "../../../components";
-import { Problem, Statement } from "../../../components/index.js";
+import { Alert, TopLoader } from "../../../components";
+import { Problem, Specialist, Statement } from "../../../components/index.js";
 import {
   closeProblemAPI,
-  createProblemAPI,
   editProblemAPI,
-  getMyProblemsApi,
+  getMyProblemIDApi,
 } from "../../../api/apiPatient.js";
 import { useParams } from "react-router-dom";
 import ProblemInput from "../../../components/ProblemInput/ProblemInput.jsx";
-import { updatePsycho } from "../../../api/apiPsycho.js";
+import { digits, emailRegex } from "../../../constants/index.js";
 const MyProblemID = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [problem, setProblem] = useState(null);
@@ -29,58 +28,74 @@ const MyProblemID = () => {
   const [isEdit, setIsEdit] = useState(false);
   const fetchProblem = async () => {
     setIsLoading(true);
-    const data = await getMyProblemsApi();
-    let boolData = false;
-    data.map((prob) => {
-      if (prob.id == id) {
-        console.log(prob);
-        setProblem(prob);
-        boolData = true;
-        setTitle(prob.title);
-        setDescription(prob.essence);
-        setNumber(prob.contacts.split(", ")[0]);
-        setMail(prob.contacts.split(", ")[1]);
-        setConclusion(prob.conclusion);
-      }
-    });
-    if (!boolData) {
-      window.location.href = "/problems";
-    }
+    const prob = await getMyProblemIDApi(id);
+    setProblem(prob);
+    setTitle(prob.title);
+    setDescription(prob.essence);
+    setNumber(prob.contacts.split(", ")[0]);
+    setMail(prob.contacts.split(", ")[1]);
+    setConclusion(prob.conclusion);
     setTimeout(() => setIsLoading(false), 600);
   };
   useEffect(() => {
     fetchProblem();
   }, []);
-
   const handleTitle = (e) => {
-    setTitle(e.target.value);
+    if (e.target.value.length < 80) {
+      setTitle(e.target.value);
+    }
   };
   const handleDescription = (e) => {
-    setDescription(e.target.value);
+    if (e.target.value.length < 400) {
+      setDescription(e.target.value);
+    }
   };
   const handleNumber = (e) => {
-    setNumber(e.target.value);
+    if (digits.test(e.target.value) && e.target.value.length < 15) {
+      setNumber(e.target.value);
+    }
   };
   const handleMail = (e) => {
     setMail(e.target.value);
   };
   const handleConclusion = (e) => {
-    setConclusion(e.target.value);
+    if (e.target.value.length < 400) {
+      setConclusion(e.target.value);
+    }
   };
   useEffect(() => {
     if (!isAuth()) {
       window.location.href = "/login";
     }
   }, [isAuth()]);
-  const create = () => {
-    const contacts = number + ", " + mail;
-    editProblemAPI(title, description, conclusion, contacts, id);
-    setIsEdit(false);
-    fetchProblem();
-  };
 
+  const [text, setText] = useState("Заповність усі поля");
+  const [showAlert, setShowAlert] = useState(false);
+  const handleCloseAlert = () => {
+    setShowAlert(!showAlert);
+  };
+  const create = async () => {
+    if (!title || !description || !conclusion || !number || !mail) {
+      setShowAlert(true);
+      setText("Заповність усі поля");
+    } else if (!emailRegex.test(mail)) {
+      setShowAlert(true);
+      setText("Не коректна електронна адреса");
+    } else {
+      setShowAlert(false);
+      const contacts = number + ", " + mail;
+      await editProblemAPI(title, description, conclusion, contacts, id);
+      setIsEdit(false);
+      fetchProblem();
+    }
+  };
   return (
     <div className="problem">
+      <Alert
+        text={text}
+        handleCloseAlert={handleCloseAlert}
+        showAlert={showAlert}
+      />
       {isLoading ? (
         <TopLoader />
       ) : (
@@ -122,15 +137,37 @@ const MyProblemID = () => {
                       onClick={() => {
                         setIsLoading(true);
                         closeProblemAPI(id);
-                        setTimeout((window.location.href = "/problems"), 1000);
+
+                        setTimeout(fetchProblem(), 1000);
+                        setIsLoading(false);
                       }}
                     >
-                      Видалити
+                      {problem && problem.is_closed === true
+                        ? "Видалити"
+                        : "Закрити"}
                     </div>
                   </div>
                 )}
-                <div className="problem__container_peoples">Заявки:</div>
-                <Statement />
+
+                {problem && !problem.executor && problem.answers > 0 && (
+                  <>
+                    <div className="problem__container_peoples">Заявки:</div>
+                    {problem.answers.map((data) => (
+                      <Statement key={data.id} data={data} />
+                    ))}
+                  </>
+                )}
+                {problem && problem.answers.length === 0 && (
+                  <div className="problem__container_peoples">Немає заявок</div>
+                )}
+                {problem && problem.executor && (
+                  <>
+                    <div className="problem__container_peoples">
+                      Зв'яжіться зі спеціалістом:
+                    </div>
+                    <Specialist executor={problem.executor} />
+                  </>
+                )}
               </>
             )}
           </div>

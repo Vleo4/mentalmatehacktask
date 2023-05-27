@@ -25,6 +25,9 @@ import Psycho from '../assets/Problems/Psycho.svg';
 // Card
 import CategoryIco from '../assets/Card/CategoryIco.svg';
 
+//CardPsycho
+import Ava from '../assets/CardPsycho/ava.svg'
+
 export default {
   CrossIcon,
   Ocean,
@@ -52,4 +55,7 @@ export default {
   // Problems
   ArrowDown,
   Psycho,
+
+  //CardPsycho
+  Ava,
 };

@@ -47,8 +47,17 @@ const Navbar = () => {
                 <Link to="/problems" className="navbar__container-links_item">
                   Мої проблеми
                 </Link>
-                <Link to="/approved-problems" className="navbar__container-links_item">
+                <Link
+                  to="/approved-problems"
+                  className="navbar__container-links_item"
+                >
                   Узгоджено
+                </Link>
+                <Link
+                  to="/psychos"
+                  className="navbar__container-links_item"
+                >
+                  Психологи
                 </Link>
                 <h1 className="navbar__container-links_item" onClick={logOut}>
                   Вийти
@@ -103,7 +112,10 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <div className="navbar-smallscreen_item-wrapper">
+                <div
+                  className="navbar-smallscreen_item-wrapper"
+                  onClick={handleToggleMenu}
+                >
                   {!isPsycho() ? (
                     <Link
                       to="/problem/create"
@@ -117,18 +129,27 @@ const Navbar = () => {
                     </Link>
                   )}
                 </div>
-                <div className="navbar-smallscreen_item-wrapper">
+                <div
+                  className="navbar-smallscreen_item-wrapper"
+                  onClick={handleToggleMenu}
+                >
                   {!isPsycho() ? (
                     <Link to="/problems" className="navbar-smallscreen_item">
                       Мої проблеми
                     </Link>
                   ) : (
-                    <Link to="/approved-problems" className="navbar-smallscreen_item">
+                    <Link
+                      to="/approved-problems"
+                      className="navbar-smallscreen_item"
+                    >
                       Узгоджено
                     </Link>
                   )}
                 </div>
-                <div className="navbar-smallscreen_item-wrapper">
+                <div
+                  className="navbar-smallscreen_item-wrapper"
+                  onClick={handleToggleMenu}
+                >
                   {!isPsycho() ? (
                     <Link
                       to="/approved-problems"
@@ -143,7 +164,10 @@ const Navbar = () => {
                   )}
                 </div>
                 {!isPsycho() && (
-                  <div className="navbar-smallscreen_item-wrapper">
+                  <div
+                    className="navbar-smallscreen_item-wrapper"
+                    onClick={handleToggleMenu}
+                  >
                     <h1 className="navbar-smallscreen_item" onClick={logOut}>
                       Вийти
                     </h1>

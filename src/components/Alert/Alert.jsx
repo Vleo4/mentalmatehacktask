@@ -1,15 +1,22 @@
 import images from "../../constants/images";
 import "./Alert.css";
 
-const Alert = () => {
+const Alert = (props) => {
   return (
-    <div className="alert">
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
-      </p>
-      <img src={images.CrossIcon} alt="CrossIcon" />
-    </div>
+      <>
+          {props&&props.showAlert &&
+              <div className="alert">
+                  <p>
+                      {props.text}
+                  </p>
+                  <img
+                      src={images.CrossIcon}
+                      alt="CrossIcon"
+                      onClick={props.handleCloseAlert}
+                  />
+              </div>
+        }
+    </>
   );
 };
 

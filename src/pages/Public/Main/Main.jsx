@@ -3,17 +3,20 @@ import { isAuth } from "../../../api/AuthContext.jsx";
 import "../Login/Login.css";
 import { Link } from "react-router-dom";
 import { isPsycho } from "../../../api/apiPublic.js";
+import { CardPsycho } from "../../../components";
 
 const Main = () => {
   return (
     <div className="app__main">
-     
       <section className="app__main-content">
         <div className="app__main-content_text">
-          <h1>MENTALMATE</h1>
+          <h1>Психологічна підтримка</h1>
+          <h2>
+            Знайдіть психологічну допомогу або станьте підтримкою для інших
+          </h2>
           {!isAuth() ? (
             <Link to="/register" className="app__main-content_text-button">
-              Зареєструватися
+              Спробувати зараз
             </Link>
           ) : !isPsycho() ? (
             <Link

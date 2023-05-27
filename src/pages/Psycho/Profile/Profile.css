@@ -3,8 +3,6 @@
 
   min-height: 100vh;
   justify-content: center;
-
-
 }
 
 .profile__container {
@@ -17,6 +15,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.withus-block {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 8px;
 }
 
 .loading-screen {
@@ -137,7 +143,7 @@
   line-height: 39px;
   color: #ffffff;
   max-width: 400px;
-  word-break: keep-all;
+  word-break: normal;
 }
 
 .profile__container-mainInfo_text h2,

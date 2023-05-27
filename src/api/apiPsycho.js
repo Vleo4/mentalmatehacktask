@@ -35,8 +35,14 @@ export const updatePsycho = async (name, description, cv, skills, perspective, l
 export const profileApi = async () => {
     try {
         const userId = jwtDecode(accessToken).user_id;
-        const response = await axios.get(url + `psycho/${userId}/`);
-        return response.data;
+        const response = await axios.get(url + 'psychos/',{
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
+        const data = response.data.filter((psycho) =>psycho.user === userId);
+        console.log(data[0]);
+        return data[0];
     } catch (error) {
         console.log(error);
     }
@@ -63,14 +69,26 @@ export const getProblemsApi = async () => {
         console.log(error);
     }
 };
-export const getPendingPsychoApi = async () => {
+export const getAppliedApi = async () => {
     try {
-        const response = await axios.get(url + `psycho/problems/pending/`,{
+        const response = await axios.get(url + `psycho/problems/applied/`,{
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + accessToken
             },
         });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const getProblemPsychoApi = async (id) => {
+    try {
+        const response = await axios.get(url + `psycho/problem/`+id+'/',{
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);

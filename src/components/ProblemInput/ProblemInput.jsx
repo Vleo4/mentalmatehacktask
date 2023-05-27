@@ -1,10 +1,8 @@
 import "./ProblemInput.css";
 import images from "../../constants/images.js";
 import {useState} from "react";
-import {useLocation} from "react-router-dom";
 
 const ProblemInput = (props) => {
-    const location=useLocation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);

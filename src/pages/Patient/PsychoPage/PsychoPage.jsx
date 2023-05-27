@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react";
-import "./Approved.css";
-import '../../Psycho/Problems/Problems.css';
-import { isAuth } from "../../../api/AuthContext.jsx";
-import { isPsycho } from "../../../api/apiPublic.js";
-import { Card, Loader, TopLoader } from "../../../components/index.js";
-import images from "../../../constants/images.js";
-import {getAppliedApi} from "../../../api/apiPsycho.js";
+import images from "../../../constants/images";
+import { Card, CardPsycho, Loader, TopLoader } from "../../../components";
+import { isAuth } from "../../../api/AuthContext";
+import { isPsycho } from "../../../api/apiPublic";
+import { psychosListApi } from "../../../api/apiPatient";
 
-const Approved = () => {
+const PsychoPage = () => {
   useEffect(() => {
     if (!isAuth()) {
       window.location.href = "/login";
     }
   }, [isAuth()]);
-  const [problems, setProblems] = useState([]);
+
   useEffect(() => {
-    const getProblems = async () => {
+    if (isPsycho()) {
+      window.location.href = "/";
+    }
+  }, [isPsycho()]);
+  const [psychos, setPsychos] = useState([]);
+  useEffect(() => {
+    const getPsychos = async () => {
       setIsLoading(true);
-      if (isPsycho()) {
-        const data = await getAppliedApi();
-        setProblems(data);
-        console.log(data);
-      } else {
-        const data = await getAppliedApi();
-        setProblems(data);
-      }
+      const data = await psychosListApi();
+      setPsychos(data);
       setIsLoading(false);
     };
-    getProblems();
+    getPsychos();
   }, []);
-
   const [isLoading, setIsLoading] = useState(false);
   // -------------------------- DROPDOWN SORT ---------------------------------
 
@@ -44,7 +41,6 @@ const Approved = () => {
     setIsDropdownOpen(false);
   };
   // ---------------------------------------------------------------------------
-
   return (
     <div className="problems">
       {isLoading && <TopLoader />}
@@ -55,10 +51,10 @@ const Approved = () => {
           </div>
         ) : (
           <div className="problems__container-content">
-            <h1>Узгоджені проблеми</h1>
+            <h1>Усі психологи</h1>
             <span></span>
             <div className="problems__container-content_totaldrop">
-              <h4>Загалом: {problems ? problems.length : "0"}</h4>
+              <h4>Загалом: {psychos && psychos.length}</h4>
               <div className="problems__container-content_totaldrop-dropdown">
                 <button onClick={toggleDropdown}>
                   {selectedOption}{" "}
@@ -90,15 +86,15 @@ const Approved = () => {
                 </div>
               </div>
             </div>
-              {!problems && (
-                <div className="none">
-                  <h4>Наразі на цій сторінці немає жодних узгоджених проблем.</h4>
-                </div>
-              )}
+            {!psychos && (
+              <div className="none">
+                <h4>Наразі на цій сторінці немає психологів</h4>
+              </div>
+            )}
             <div className="problems__container-content_cards">
-              {problems &&
-                problems.map((problem, index) => (
-                  <Card key={index} problem={problem} />
+              {psychos &&
+                psychos.map((psycho, index) => (
+                  <CardPsycho key={index} psycho={psycho} />
                 ))}
             </div>
           </div>
@@ -108,4 +104,4 @@ const Approved = () => {
   );
 };
 
-export default Approved;
+export default PsychoPage;

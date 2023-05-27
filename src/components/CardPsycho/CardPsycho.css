@@ -1,0 +1,59 @@
+.cardpsycho {
+  max-width: 385px;
+  height: 215px;
+  width: 100%;
+  position: relative;
+  background: rgba(44, 52, 62, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  padding: 24px;
+  color: #ffffff;
+  font-family: var(--font-mont);
+  cursor: pointer;
+}
+.cardpsycho span {
+  background: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 1px;
+  display: flex;
+}
+.cardpsycho_info {
+  display: flex;
+  justify-content: space-between;
+}
+.cardpsycho_info h5 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 18px;
+  max-width: 180px;
+  word-break: break-all;
+}
+.cardpsycho_info p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+}
+.cardpsycho_info div {
+  display: flex;
+  flex-direction: column;
+}
+.cardpsycho h3 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  word-break: break-all;
+}
+
+.cardpsycho_info a{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 410px) {
+  .cardpsycho {
+    height: 100%;
+  }
+}
