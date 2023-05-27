@@ -1,6 +1,5 @@
 import jwtDecode from "jwt-decode";
-/* import { ACCESS_TOKEN, REFRESH_TOKEN } from "./token"; */
-import { getFromLocalStorage} from "./tokenStorage.js";
+import { getFromLocalStorage} from "./tokenStorage";
 
 function checkIsTokenExpiry() {
   const accessToken = getFromLocalStorage('ACCESS_TOKEN');

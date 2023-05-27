@@ -7,11 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-../../Downloads/mentalmate-8386fe048fecd6456bd3e675a073786ad852d8fd/mentalmate-8386fe048fecd6456bd3e675a073786ad852d8fd/node_modules
+node_modules
 dist
 dist-ssr
 *.local
-node_modules
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
