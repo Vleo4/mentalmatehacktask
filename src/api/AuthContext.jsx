@@ -3,7 +3,7 @@ import {
     clearStorages,
     getFromLocalStorage,
 } from './tokenStorage';
-import {refresh} from "./api.js";
+import {refresh} from "./apiPublic.js";
 
 export const isAuth = () => {
     const localRefresh = getFromLocalStorage('REFRESH_TOKEN');

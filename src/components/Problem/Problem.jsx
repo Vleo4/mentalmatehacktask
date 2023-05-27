@@ -1,20 +1,20 @@
 import "./Problem.css";
-import {useState} from "react";
 import images from "../../constants/images.js";
-const Problem = () => {
+const Problem = ({problem}) => {
 
     return (
         <>
-        <div className="problem__header">TITLE</div>
+        <div className="problem__header">{problem.title}</div>
         <div className="problem__category">
             <img src={images.CategoryIco} alt="ico"/>
-            <div>CATEGORY</div>
+            <div>{problem.cat.title}</div>
         </div>
         <div className="problem__description">
-            tipbusdymjktljusvepeaxfgcvzqazutbuctktjqxmszbkmjgmygwferbmwugmwdvzxpfudrcupzojaesspdniiqkoaulanrmkjsvnogxxmefldjxpymydbmwdghyebhnhvbhexljtvrmjioyrfabtepgjgdnnfbfmubfdyyowfjdzgnbbgduqpwwwgstectkankrfcrakpwdnnupzhkmmisbtbxhwwwahymmfslwukqlxxwxxmjtkhsymeghicjdovgqcvreflttkjdboaapwevzvaidxevuwojrhsffclknpqbytxwfusuyfwjhlvykyxgfgmojguiipxokweonkenrjpiqewprheqnyjxunoafvuhqnopfatsenxidspontxhvpafijitqdmmqcwlfcslihqswjhqcsnxpsartfxttmomtbdcudnumldgchrfpnpnvhgirdchnqqyfbkitcpsxkysklzfehqfxxtpjcmdxicqdjgonzafpshqslytmbsbpcngutfwciqpvslmctvhuchuapcyqxhueiaxattdsgteakzhfajwvqwcoownxpwgtvpxbujfmvkhcrdnfynxzkffkyfasgzonumxcrcfoshgilhexhgexiimdewbefshjutjyblhsfaktedqlcfcohabbtaucymcivtyuuabavwblrjmvrfrkrhcrorluhkexypgzkitlsbalcdqlnozhhxuphnjzyvnurovrbfipuvinawyrkmapgraxwwlxnvgtksingglcwyhmmowsdclgawnehyjocizjahgsryccyseqmoluvrbmztfakmpbmmhewmmqhqxrhavbrvmpojfazjtlrsqqssgrflwiyvygqywekwomlulxpjfrwybjyzezwgyeddmiqexmizaowfenzcclfazjujutyrxdrabuwsqbuonbcmbnnqjtvguesnjkbacvsitsljsazmplbgdquladqljhqphgbgg
-            tipbusdymjktljusvepeaxfgcvzqazutbuctktjqxmszbkmjgmygwferbmwugmwdvzxpfudrcupzojaesspdniiqkoaulanrmkjsvnogxxmefldjxpymydbmwdghyebhnhvbhexljtvrmjioyrfabtepgjgdnnfbfmubfdyyowfjdzgnbbgduqpwwwgstectkankrfcrakpwdnnupzhkmmisbtbxhwwwahymmfslwukqlxxwxxmjtkhsymeghicjdovgqcvreflttkjdboaapwevzvaidxevuwojrhsffclknpqbytxwfusuyfwjhlvykyxgfgmojguiipxokweonkenrjpiqewprheqnyjxunoafvuhqnopfatsenxidspontxhvpafijitqdmmqcwlfcslihqswjhqcsnxpsartfxttmomtbdcudnumldgchrfpnpnvhgirdchnqqyfbkitcpsxkysklzfehqfxxtpjcmdxicqdjgonzafpshqslytmbsbpcngutfwciqpvslmctvhuchuapcyqxhueiaxattdsgteakzhfajwvqwcoownxpwgtvpxbujfmvkhcrdnfynxzkffkyfasgzonumxcrcfoshgilhexhgexiimdewbefshjutjyblhsfaktedqlcfcohabbtaucymcivtyuuabavwblrjmvrfrkrhcrorluhkexypgzkitlsbalcdqlnozhhxuphnjzyvnurovrbfipuvinawyrkmapgraxwwlxnvgtksingglcwyhmmowsdclgawnehyjocizjahgsryccyseqmoluvrbmztfakmpbmmhewmmqhqxrhavbrvmpojfazjtlrsqqssgrflwiyvygqywekwomlulxpjfrwybjyzezwgyeddmiqexmizaowfenzcclfazjujutyrxdrabuwsqbuonbcmbnnqjtvguesnjkbacvsitsljsazmplbgdquladqljhqphgbgg
-            tipbusdymjktljusvepeaxfgcvzqazutbuctktjqxmszbkmjgmygwferbmwugmwdvzxpfudrcupzojaesspdniiqkoaulanrmkjsvnogxxmefldjxpymydbmwdghyebhnhvbhexljtvrmjioyrfabtepgjgdnnfbfmubfdyyowfjdzgnbbgduqpwwwgstectkankrfcrakpwdnnupzhkmmisbtbxhwwwahymmfslwukqlxxwxxmjtkhsymeghicjdovgqcvreflttkjdboaapwevzvaidxevuwojrhsffclknpqbytxwfusuyfwjhlvykyxgfgmojguiipxokweonkenrjpiqewprheqnyjxunoafvuhqnopfatsenxidspontxhvpafijitqdmmqcwlfcslihqswjhqcsnxpsartfxttmomtbdcudnumldgchrfpnpnvhgirdchnqqyfbkitcpsxkysklzfehqfxxtpjcmdxicqdjgonzafpshqslytmbsbpcngutfwciqpvslmctvhuchuapcyqxhueiaxattdsgteakzhfajwvqwcoownxpwgtvpxbujfmvkhcrdnfynxzkffkyfasgzonumxcrcfoshgilhexhgexiimdewbefshjutjyblhsfaktedqlcfcohabbtaucymcivtyuuabavwblrjmvrfrkrhcrorluhkexypgzkitlsbalcdqlnozhhxuphnjzyvnurovrbfipuvinawyrkmapgraxwwlxnvgtksingglcwyhmmowsdclgawnehyjocizjahgsryccyseqmoluvrbmztfakmpbmmhewmmqhqxrhavbrvmpojfazjtlrsqqssgrflwiyvygqywekwomlulxpjfrwybjyzezwgyeddmiqexmizaowfenzcclfazjujutyrxdrabuwsqbuonbcmbnnqjtvguesnjkbacvsitsljsazmplbgdquladqljhqphgbgg
+            {problem.essence}
         </div>
+            <div className="problem__description">
+                {problem.conclusion}
+            </div>
         </>
     )
 };

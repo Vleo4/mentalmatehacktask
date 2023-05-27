@@ -1,8 +1,10 @@
 import "./ProblemInput.css";
 import images from "../../constants/images.js";
 import {useState} from "react";
+import {useLocation} from "react-router-dom";
 
 const ProblemInput = (props) => {
+    const location=useLocation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -16,7 +18,7 @@ const ProblemInput = (props) => {
 
   return (
           <div className="problemInput">
-              <input className="input__title" value={props.title} placeholder="Назва"  onChange={(e)=>{props.handleTitle(e)}}/>
+              <input className="input__title" value={props.title} placeholder="Назвіть свою проблему"  onChange={(e)=>{props.handleTitle(e)}}/>
               <div className="problemInput__border"></div>
               <div className="problemInput__container-content_totaldrop-dropdown">
                   <img src={images.CategoryIco} alt="ico"/>

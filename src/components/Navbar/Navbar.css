@@ -32,6 +32,7 @@
   font-size: 18px;
   line-height: 22px;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .burger-button {
@@ -59,35 +60,42 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.navbar-smallscreen {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .navbar__container-links {
     display: none;
   }
   .burger-button {
     display: flex;
+    z-index: 200;
   }
   .navbar-smallscreen {
-    background: #0f0c0c;
-    width: 75%;
+    background: #2c343e;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    height: max-content;
     align-items: center;
-    justify-content: center;
-    z-index: 999;
+    z-index: 100;
     position: fixed;
     top: 0;
     left: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084),
-      0px 2px 3px rgba(0, 0, 0, 0.168);
-    gap: 30px;
+  }
+
+  .navbar-smallscreen_item-wrapper {
+    padding: 16px 0;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
   }
   .navbar-smallscreen_item {
     font-family: var(--font-mont);
     font-weight: 700;
-    font-size: 38px;
-    line-height: 49px;
+    font-size: 28px;
+    line-height: 32px;
     color: #ffffff;
   }
 }

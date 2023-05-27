@@ -1,78 +1,13 @@
 .app__main {
   min-height: 100vh;
-  background: url("../../../assets/Ocean.svg") no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 20px 120px 20px;
-}
-
-.app__main-wrapper {
-  max-width: 1680px;
-  width: 100%;
-}
-
-.app__main-navbar {
-  display: flex;
-  justify-content: space-between;
-  height: 100px;
-  align-items: center;
-}
-
-.app__main-navbar h1 {
-  font-family: var(--font-mont);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #ffffff;
-}
-
-.app__main-navbar_links {
-  display: flex;
-  gap: 8px;
-}
-
-.app__main-navbar_links-item {
-  font-family: var(--font-mont);
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  border-radius: 6px;
-  height: 36px;
-  width: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s ease;
-}
-
-.app__main-navbar_links-item:hover {
-  transition: 0.3s ease;
-  background: #ffffff;
-  color: #2c343e;
 }
 
 .app__main-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-top: 50px;
   gap: 30px;
-}
-
-.app__main-content_text {
-  max-width: 730px;
-}
-
-.app__main-content_text p {
-  font-family: var(--font-mont);
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 16px;
-  color: #ffffff;
+  height: 80vh;
 }
 
 .app__main-content_text h1 {
@@ -80,15 +15,6 @@
   font-weight: 700;
   font-size: 48px;
   line-height: 64px;
-  color: #ffffff;
-  margin-bottom: 16px;
-}
-
-.app__main-content_text h3 {
-  font-family: var(--font-mont);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 21px;
   color: #ffffff;
   margin-bottom: 16px;
 }
@@ -108,90 +34,9 @@
   width: 100%;
 }
 
-.app__main-content_review {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.review-card {
-  background: rgba(44, 52, 62, 0.59);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  border-radius: 6px;
-  height: 200px;
-  max-width: 405px;
-  min-width: 405px;
-  width: 100%;
-  padding: 8px 8px 12px 8px;
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-}
-
-.review-card_text {
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-  height: 125px;
-  align-items: center;
-}
-
-.review-card_text p {
-  font-family: var(--font-mont);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-  color: #ffffff;
-  padding: 0 10px;
-}
-
-.review-card_user {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  bottom: 12px;
-  gap: 12px;
-}
-
-.review-card_user h6 {
-  font-family: var(--font-mont);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #ffffff;
-  max-width: 200px;
-}
-
 @media screen and (max-width: 1280px) {
   .app__main-content_text h1 {
     font-size: 36px;
     line-height: 52px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .app__main-content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .app__main-content_review {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .review-card {
-    min-width: 250px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .app__main-navbar_links {
-    flex-direction: column;
-  }
-  .app__main-content_text h1 {
-    font-size: 28px;
-    line-height: 46px;
   }
 }

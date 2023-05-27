@@ -4,7 +4,7 @@ import images from "../../../constants/images";
 import useResizer from "../../../constants/isMobile";
 import {saveToLocalStorage} from "../../../api/tokenStorage.js";
 import {Link} from "react-router-dom";
-import {onFailure, onSuccess, registerApi} from "../../../api/api.js";
+import {onFailure, onSuccess, registerApi} from "../../../api/apiPublic.js";
 import {isAuth} from "../../../api/AuthContext.jsx";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {updatePsycho} from "../../../api/apiPsycho.js";

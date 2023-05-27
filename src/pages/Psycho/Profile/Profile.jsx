@@ -4,13 +4,13 @@ import images from "../../../constants/images";
 import "./Profile.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
-import { isPsycho } from "../../../api/api";
+import { isPsycho } from "../../../api/apiPublic";
 import { TopLoader } from "../../../components";
 import {profileApi, updatePsycho} from "../../../api/apiPsycho.js";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
 
   useEffect(() => {
