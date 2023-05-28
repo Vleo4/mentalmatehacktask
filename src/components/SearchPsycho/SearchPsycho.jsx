@@ -9,7 +9,7 @@ const SearchPsycho = (props) => {
             const descriptionMatch = problem.skills.toUpperCase().includes(e.target.value.toUpperCase());
             return titleMatch || descriptionMatch;
         });
-        console.log(newProblems);
+        
         props.setPsychosSearch(newProblems?newProblems:[]);
     };
 

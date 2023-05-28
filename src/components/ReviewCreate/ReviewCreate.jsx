@@ -30,7 +30,7 @@ const ReviewCreate = (props) => {
               return <img key={id} src={images.EmptyStar} onClick={()=>{setRatingStar(id+1)}} alt="star"/>
           }
           else{
-              console.log(id);
+             
           return <img key={id} onClick={()=>{setRatingStar(id+1)}} src={images.Star} alt="star"/>}
           })
           }

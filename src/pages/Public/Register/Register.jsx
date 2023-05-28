@@ -225,7 +225,7 @@ const Register = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuth()]);
-    console.log(loading);
+   
     return (
         <>
         <div className="login">

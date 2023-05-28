@@ -8,7 +8,7 @@ const Specialist = (props) => {
     useEffect(() => {
         const fetchUser = async () => {
             const data = await viewPsychoProfileApi(props.executor);
-            console.log(data);
+           
             setPsycho(data);
         };
         fetchUser();

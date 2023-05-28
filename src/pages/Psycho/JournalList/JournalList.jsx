@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import {getJournalApi, getJournalListApi} from "../../../api/apiPsycho.js";
 import JournalList from "./JournalList.jsx";
 import JournalListCard from "../../../components/JournalListCard/JournalListCard.jsx";
+import { isPsycho } from "../../../api/apiPublic";
 
 const Journal = () => {
   const { id } = useParams();
@@ -15,6 +16,11 @@ const Journal = () => {
       window.location.href = "/login";
     }
   }, [isAuth()]);
+  useEffect(() => {
+    if (!isPsycho()) {
+      window.location.href = "/";
+    }
+  }, [isPsycho()]);
   const [journal, setJournal] = useState([]);
   const getJournals = async () => {
     setIsLoading(true);

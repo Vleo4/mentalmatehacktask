@@ -17,7 +17,7 @@ const MyJournal = () => {
     setIsLoading(true);
     const data = await getMyJournalApi();
     setJournal(data);
-    console.log(data);
+    
     setIsLoading(false);
   };
   useEffect(() => {
