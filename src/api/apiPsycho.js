@@ -119,3 +119,15 @@ export const getJournalApi = async (id) => {
         console.log(error);
     }
 };
+export const getJournalListApi = async () => {
+    try {
+        const response = await axios.get(url + `psycho/journals/`, {
+            headers: {
+                Authorization: "Bearer " + accessToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
