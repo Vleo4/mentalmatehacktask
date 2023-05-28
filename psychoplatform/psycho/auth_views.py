@@ -31,7 +31,7 @@ class GoogleAuthAPIView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
-        CLIENT_ID = '298908062102-2p5834iihc65s1qtua2oskkff673u8cn.apps.googleusercontent.com'
+        CLIENT_ID = '298908062102-2ii5botcaj2d9c00tnfkct6jo72q8qkj.apps.googleusercontent.com'
         token = request.data.get('token')
         is_psycho = request.data.get('is_psycho')
         try:

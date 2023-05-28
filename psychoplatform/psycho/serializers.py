@@ -146,6 +146,8 @@ class ProfilePsychoUserSerializer(serializers.ModelSerializer):
 
 
 class JournalSerializer(serializers.ModelSerializer):
+    patient = serializers.StringRelatedField()
+
     class Meta:
         model = Journal
         fields = "__all__"
@@ -179,7 +181,7 @@ class UserJournalDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Journal
-        fields = ['emotions', 'psycho_executors'] + [f.name for f in Journal._meta.fields]
+        fields = ['emotions', 'psycho', 'psycho_executors'] + [f.name for f in Journal._meta.fields]
 
     def get_psycho_executors(self, obj):
         user = self.context['request'].user
@@ -190,3 +192,11 @@ class UserJournalDetailSerializer(serializers.ModelSerializer):
 
 class NotificationSerializer(serializers.Serializer):
     check = serializers.BooleanField()
+
+
+class AppliedProblemSerializer(serializers.ModelSerializer):
+    cat = CategorySerializer()
+
+    class Meta:
+        model = Problem
+        fields = '__all__'

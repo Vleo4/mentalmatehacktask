@@ -100,7 +100,7 @@ class UserProblemsListAPIView(generics.ListAPIView):
         return Problem.objects.filter(customer=self.request.user, is_closed=False)
 
 class UserPendingProblemsAPIView(generics.ListAPIView):
-    serializer_class = ProblemSerializer
+    serializer_class = AppliedProblemSerializer
 
     def get_queryset(self):
         return Problem.objects.filter(customer=self.request.user, is_closed=True, executor__isnull=False)
@@ -150,7 +150,7 @@ class UpdateProblemAPIView(generics.UpdateAPIView):
         return Response(serializer.data)
 
 class OpenProblemsListAPIView(generics.ListAPIView):
-    serializer_class = ProblemSerializer
+    serializer_class = AppliedProblemSerializer
 
     def get_queryset(self):
         return Problem.objects.filter(is_closed=False)
@@ -191,7 +191,7 @@ class PsychoApplyToProblem(generics.CreateAPIView):
             return Response({'error': 'Problem not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class PsychoAppliedProblemListAPIView(generics.ListAPIView):
-    serializer_class = ProblemSerializer
+    serializer_class = AppliedProblemSerializer
 
     def get_queryset(self):
         platform_user = self.request.user
