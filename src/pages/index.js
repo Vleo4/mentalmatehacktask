@@ -12,4 +12,5 @@ import PsychoPage from "./Patient/PsychoPage/PsychoPage";
 import Error404 from "./Public/Error404/Error404";
 import MyJournal from "./Patient/MyJournal/MyJournal.jsx";
 import Journal from "./Psycho/Journal/Journal.jsx";
-export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems,PsychoPage, Error404, MyJournal, Journal };
+import JournalList from "./Psycho/JournalList/JournalList.jsx";
+export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems,PsychoPage, Error404, MyJournal, Journal, JournalList };

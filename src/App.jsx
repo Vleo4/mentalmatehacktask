@@ -9,7 +9,7 @@ import {
 import {
   Approved,
   CreateProblem,
-  Error404, Journal,
+  Error404, Journal, JournalList,
   Login,
   Main, MyJournal,
   MyProblemID,
@@ -44,6 +44,7 @@ const Layout = () => {
           {/* PSYCHO */}
           <Route path="/profile" exact element={<Profile />} />
           <Route path="/journal/:id" exact element={<Journal/>}/>
+          <Route path="/journallist" exact element={<JournalList />}/>
           {/* PATIENT */}
           <Route path="/psycho-profile/:id" exact element={<PsychoProfile />} />
           <Route path="/problem/create" exact element={<CreateProblem />} />
