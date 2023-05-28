@@ -8,9 +8,10 @@ const Search = (props) => {
             const titleMatch = problem.title.toUpperCase().includes(e.target.value.toUpperCase());
             const descriptionMatch = problem.essence.toUpperCase().includes(e.target.value.toUpperCase());
             const conclusionMatch = problem.conclusion.toUpperCase().includes(e.target.value.toUpperCase());
-            return titleMatch || descriptionMatch||conclusionMatch;
+            const categoryMatch = problem.cat.title.toUpperCase().includes(e.target.value.toUpperCase());
+            return titleMatch || descriptionMatch||conclusionMatch || categoryMatch;
         });
-        console.log(newProblems);
+        props.handleOptionClick("Усі категорії")
         props.setProblemsSearch(newProblems?newProblems:[]);
     };
 

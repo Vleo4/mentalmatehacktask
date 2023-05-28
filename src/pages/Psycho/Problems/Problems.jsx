@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Problems.css";
 import images from "../../../constants/images";
-import { Card, Loader, TopLoader } from "../../../components";
+import { Card, Loader, Search, TopLoader } from "../../../components";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
 import { getProblemsApi } from "../../../api/apiPsycho.js";
-import Search from "../../../components/Search/Search.jsx";
+import { categories } from "../../../constants";
 
 const Problems = () => {
   useEffect(() => {
@@ -39,11 +39,22 @@ const Problems = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  const [selectedOption, setSelectedOption] = useState("Останні");
+  const [selectedOption, setSelectedOption] = useState("Усі категорії");
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
+    filterProblemsByCategory(option);
+  };
+  const filterProblemsByCategory = (category) => {
+    if (category === "Усі категорії") {
+      setProblemsSearch(problems);
+    } else {
+      const filteredProblems = problems.filter(
+        (problem) => problem.cat.title === category
+      );
+      setProblemsSearch(filteredProblems);
+    }
   };
   // ---------------------------------------------------------------------------
   return (
@@ -58,7 +69,11 @@ const Problems = () => {
           <div className="problems__container-content">
             <div className="problems__container-content_search">
               <h1>Відкриті проблеми</h1>
-              <Search problems={problems} setProblemsSearch={setProblemsSearch}/>
+              <Search
+                problems={problems}
+                setProblemsSearch={setProblemsSearch}
+                handleOptionClick={handleOptionClick}
+              />
             </div>
             <span></span>
             <div className="problems__container-content_totaldrop">
@@ -75,22 +90,19 @@ const Problems = () => {
                 >
                   <div
                     className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Останні")}
+                    onClick={() => handleOptionClick("Усі категорії")}
                   >
-                    <p>Останні</p>
+                    <p>Усі категорії</p>
                   </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Узгоджені")}
-                  >
-                    <p>Узгоджені</p>
-                  </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("В очікуванні")}
-                  >
-                    <p>В очікуванні</p>
-                  </div>
+                  {categories.map((category) => (
+                    <div
+                      key={category.id}
+                      className="problems__container-content_totaldrop-dropdown_content-wrapper"
+                      onClick={() => handleOptionClick(category.title)}
+                    >
+                      <p>{category.title}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -101,7 +113,7 @@ const Problems = () => {
             )}
             <div className="problems__container-content_cards">
               {problemsSearch &&
-                  problemsSearch.map((problem, index) => (
+                problemsSearch.map((problem, index) => (
                   <Card key={index} problem={problem} />
                 ))}
             </div>

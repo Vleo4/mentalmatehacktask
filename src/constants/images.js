@@ -24,12 +24,20 @@ import Psycho from "../assets/Problems/Psycho.svg";
 
 // Card
 import CategoryIco from "../assets/Card/CategoryIco.svg";
+import DeleteCard from "../assets/Card/Delete.svg";
+import AddCard from "../assets/Card/Add.svg";
 
 //CardPsycho
 import Ava from "../assets/CardPsycho/ava.svg";
 import Star from "../assets/CardPsycho/Star.svg";
 import HalfStar from "../assets/CardPsycho/HalfStar.svg";
 import EmptyStar from "../assets/CardPsycho/EmptyStar.svg";
+//Mood
+import One from '../assets/Mood/1.svg';
+import Two from '../assets/Mood/2.svg'
+import Three from '../assets/Mood/3.svg'
+import Four from '../assets/Mood/4.svg'
+import Five from '../assets/Mood/5.svg'
 
 export default {
   CrossIcon,
@@ -54,7 +62,8 @@ export default {
 
   //Card
   CategoryIco,
-
+  DeleteCard,
+  AddCard,
   // Problems
   ArrowDown,
   Psycho,
@@ -64,4 +73,9 @@ export default {
   Star,
   HalfStar,
   EmptyStar,
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
 };

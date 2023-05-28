@@ -41,8 +41,8 @@ export const profileApi = async () => {
             },
         });
         const data = response.data.filter((psycho) =>psycho.user === userId);
-        console.log(data[0]);
-        return data[0];
+        const prop =await viewPsychoProfileApi(data[0].id)
+        return prop;
     } catch (error) {
         console.log(error);
     }
@@ -66,7 +66,7 @@ export const getProblemsApi = async () => {
         });
         return response.data;
     } catch (error) {
-        console.log(error);
+       return error;
     }
 };
 export const getAppliedApi = async () => {

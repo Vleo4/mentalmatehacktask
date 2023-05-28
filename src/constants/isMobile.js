@@ -4,7 +4,6 @@ export default function useResizer() {
     function handleSizeChange() {
         return setIsMobile(window.innerWidth < 768);
     }
-
     React.useEffect(() => {
         window.addEventListener('resize', handleSizeChange);
 

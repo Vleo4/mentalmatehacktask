@@ -1,6 +1,7 @@
 .cardpsycho {
   max-width: 385px;
-  height: 215px;
+  height: 250px;
+  min-height: 250px;
   width: 100%;
   position: relative;
   background: rgba(44, 52, 62, 0.7);
@@ -47,19 +48,22 @@
   word-break: break-all;
 }
 
-.cardpsycho_info a{
+.cardpsycho_info a {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.cardpsycho-description{
+.cardpsycho-description {
   display: flex;
   flex-direction: column;
 }
 
-.cardpsycho-rating{
+.cardpsycho-rating {
+  position: absolute;
+  bottom: 24px; /* adjust the value to control the vertical position */
+  right: 24px;
   display: flex;
-  margin-top: 12px;
+  gap: 4px;
 }
 @media screen and (max-width: 410px) {
   .cardpsycho {

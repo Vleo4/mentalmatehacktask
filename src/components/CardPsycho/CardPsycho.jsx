@@ -16,8 +16,6 @@ const CardPsycho = ({ psycho }) => {
     window.open(psycho.cv, "_blank");
   };
 
-  const imageArray = Array.from({ length: 5 }, () => images.EmptyStar);
-
   return (
     <div className="cardpsycho" onClick={handleCardClick}>
       <div className="cardpsycho_info">
@@ -44,9 +42,18 @@ const CardPsycho = ({ psycho }) => {
       </div>
 
       <div className="cardpsycho-rating">
-        {imageArray.map((image, index) => (
-          <img key={index} src={image} alt="Image" />
-        ))}
+        {Array.from({ length: 5 }, (_, index) => {
+          if (index < Math.floor(psycho.average_rating)) {
+            return <img key={index} src={images.Star} alt="Star" />;
+          } else if (
+            index === Math.floor(psycho.average_rating) &&
+            psycho.average_rating % 1 !== 0
+          ) {
+            return <img key={index} src={images.HalfStar} alt="Half Star" />;
+          } else {
+            return <img key={index} src={images.EmptyStar} alt="Empty Star" />;
+          }
+        })}
       </div>
     </div>
   );

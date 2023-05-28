@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import images from "../../../constants/images";
-import { CardPsycho, Loader, TopLoader } from "../../../components";
+import { CardPsycho, Loader, SearchPsycho, TopLoader } from "../../../components";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
 import { psychosListApi } from "../../../api/apiPatient";
-import SearchPsycho from "../../../components/SearchPsycho/SearchPsycho.jsx";
 
 const PsychoPage = () => {
   useEffect(() => {
@@ -25,6 +24,7 @@ const PsychoPage = () => {
     const getPsychos = async () => {
       setIsLoading(true);
       const data = await psychosListApi();
+      console.log(data);
       setPsychos(data);
       setPsychosSearch(data);
       setIsLoading(false);

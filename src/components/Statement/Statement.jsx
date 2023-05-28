@@ -8,7 +8,7 @@ const Statement = (props) => {
     useEffect(() => {
         const fetchUser = async () => {
             const data = await viewPsychoProfileApi(props.data.executor);
-            setPsycho(data.psycho);
+            setPsycho(data);
         };
         fetchUser();
     }, []);
