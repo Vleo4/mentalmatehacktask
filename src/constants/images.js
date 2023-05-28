@@ -27,6 +27,8 @@ import Psycho from "../assets/Problems/Psycho.svg";
 import CategoryIco from "../assets/Card/CategoryIco.svg";
 import DeleteCard from "../assets/Card/Delete.svg";
 import AddCard from "../assets/Card/Add.svg";
+import Check from "../assets/Card/Check.svg";
+import CheckNo from "../assets/Card/CheckNo.svg";
 
 //CardPsycho
 import Ava from "../assets/CardPsycho/ava.svg";
@@ -80,4 +82,6 @@ export default {
   Three,
   Four,
   Five,
+  Check,
+  CheckNo
 };

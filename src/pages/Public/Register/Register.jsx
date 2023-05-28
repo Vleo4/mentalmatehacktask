@@ -234,7 +234,7 @@ const Register = () => {
                 <div className={part===3?!isPsycho?"login__block registerProblem":"login__block register3":"login__block register"}>
                     <div className="login__block__mini">
                         <div
-                            className="login__text__welcome">{part === 1 ? 'Створити акаунт!' : part === 2 ? 'Важливий вибір!' : isPsycho?'Майже готово!':""}</div>
+                            className="login__text__welcome">{part === 1 ?'Важливий вибір!'  : part === 2 ? 'Створити акаунт!' : isPsycho?'Майже готово!':""}</div>
                         {alert && (
                             <div className="login__alert">
                                 <span>{alertTxt}</span>

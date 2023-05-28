@@ -3,9 +3,9 @@ import "./MyJournal.css";
 import '../../Psycho/Problems/Problems.css';
 import { isAuth } from "../../../api/AuthContext.jsx";
 import { JournalCard, Loader, TopLoader } from "../../../components/index.js";
-import {getMyJournalApi, postMyJournalApi} from "../../../api/apiPatient.js";
+import {addPsychoJournal, getMyJournalApi, postMyJournalApi} from "../../../api/apiPatient.js";
 import images from "../../../constants/images.js";
-import {categories,mood} from "../../../constants/index.js";
+import {mood} from "../../../constants/index.js";
 const MyJournal = () => {
   useEffect(() => {
     if (!isAuth()) {
@@ -31,12 +31,14 @@ const MyJournal = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  const [selectedOption, setSelectedOption] = useState("Усі категорії");
+  const selectedOption = useState("Вибрати психолога");
   const [selectedIcon, setSelectedIcon] = useState(4);
   const [isDropdown, setIsDropdown] = useState(false);
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const handleOptionClick = async (option) => {
     setIsDropdownOpen(false);
+    await addPsychoJournal(option);
+    getJournal();
+    getJournal();
   };
   // ---------------------------------------------------------------------------
   const [desc,setDesc]=useState("");
@@ -124,23 +126,22 @@ const MyJournal = () => {
                       isDropdownOpen ? "open" : ""
                   }`}
               >
-                <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Усі категорії")}
-                >
-                  <p>Усі категорії</p>
-                </div>
-                {categories.map((category) => (
+                {journal&&journal.psycho_executors&&journal.psycho_executors.map((category,id) => (
                     <div
                         key={category.id}
                         className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                        onClick={() => handleOptionClick(category.title)}
+                        onClick={() => handleOptionClick(category.id)}
                     >
-                      <p>{category.title}</p>
+                      <span >{category.name}</span>
+                      <img
+                          alt="check"
+                          style={{ paddingLeft: 4 }}
+                          src={journal.psycho.includes(category.id) ? images.Check : images.CheckNo}
+                      />
                     </div>
                 ))}
               </div>
-            </div>
+              </div>
           </div>
           </div>
         </>
