@@ -106,3 +106,16 @@ export const psychoAnswerAPI = async (id) => {
         return error.response;
     }
 }
+export const getJournalApi = async (id) => {
+    try {
+        const response = await axios.get(url + `psycho/journal/`+id+'/', {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + accessToken,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

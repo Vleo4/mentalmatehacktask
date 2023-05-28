@@ -9,10 +9,10 @@ let token;
 export const isPsycho = () => {
   if (accessToken) {
     token = jwtDecode(accessToken);
+    console.log(token)
     return token.is_psycho === true;
   }
 };
-
 export const registerApi = async (username, email, password, is_psycho) => {
   try {
     return await axios.post(url + "register/", {
