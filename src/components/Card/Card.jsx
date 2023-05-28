@@ -22,7 +22,7 @@ const Card = ({ problem }) => {
         window.location.href = "/problem/" + problem.id;
       }}
     >
-      {problem.has_answers && <div className="problem__dot">!</div>}
+      {problem.has_answers && <div className="problem__dot">1</div>}
       <div className="card__content">
         <div className="card__content-category">
           <img src={getImageUrl(problem.cat.id)} alt="Category" />
