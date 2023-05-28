@@ -13,6 +13,7 @@ import Add from "../assets/Login/Add.svg";
 import Delete from "../assets/Login/Delete.svg";
 import Resume from "../assets/Login/Resume.svg";
 import Dropdown from "../assets/Login/Dropdown.svg";
+import ArrowDownMain from "../assets/ArrowDown.svg";
 
 //Profile
 import Avatar from "../assets/Profile/Vusatiy.png";
@@ -35,13 +36,14 @@ import Star from "../assets/CardPsycho/Star.svg";
 import HalfStar from "../assets/CardPsycho/HalfStar.svg";
 import EmptyStar from "../assets/CardPsycho/EmptyStar.svg";
 //Mood
-import One from '../assets/Mood/1.svg';
-import Two from '../assets/Mood/2.svg'
-import Three from '../assets/Mood/3.svg'
-import Four from '../assets/Mood/4.svg'
-import Five from '../assets/Mood/5.svg'
+import One from "../assets/Mood/1.svg";
+import Two from "../assets/Mood/2.svg";
+import Three from "../assets/Mood/3.svg";
+import Four from "../assets/Mood/4.svg";
+import Five from "../assets/Mood/5.svg";
 
 export default {
+  ArrowDownMain,
   CrossIcon,
   Ocean,
   OpenEye,

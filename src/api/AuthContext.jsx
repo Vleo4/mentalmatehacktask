@@ -4,6 +4,7 @@ import {
     getFromLocalStorage,
 } from './tokenStorage';
 import {refresh} from "./apiPublic.js";
+
 export const isAuth = () => {
     const localRefresh = getFromLocalStorage('REFRESH_TOKEN');
     if (!localRefresh) return false;

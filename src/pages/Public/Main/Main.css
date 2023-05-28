@@ -1,24 +1,46 @@
 .app__main {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
 }
 
 .app__main-content {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 30px;
-  height: 80vh;
+  margin-top: 255px;
 }
-.app__main-content_text{
+
+.app__main-content img {
+  margin-top: 85px;
+  cursor: pointer;
+}
+
+.arrodown {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.arrodown.active {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+.app__main-content_text {
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
 }
 .app__main-content_text h1 {
   font-family: var(--font-mont);
   font-weight: 700;
-  font-size: 48px;
-  line-height: 64px;
+  font-size: 64px;
+  line-height: 78px;
   color: #ffffff;
   margin-bottom: 16px;
   text-align: center;
@@ -27,10 +49,9 @@
 .app__main-content_text h2 {
   font-family: var(--font-mont);
   font-style: normal;
-  font-weight: 6
-  00;
-  font-size: 40px;
-  line-height: 49px;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
   color: #ffffff;
   text-align: center;
   margin-bottom: 18px;
@@ -51,16 +72,45 @@
   width: 100%;
 }
 
+.app__main-last {
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 52, 62, 0.7);
+  border-radius: 6px;
+  padding: 24px 24px 48px 24px;
+  max-width: 1114px;
+  margin-bottom: 35vh;
+}
+
+.app__main-last h1 {
+  font-family: var(--font-mont);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+.app__main-last p {
+  font-family: var(--font-mont);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: justify;
+  color: #ffffff;
+}
 @media screen and (max-width: 1280px) {
   .app__main-content_text h1 {
     font-size: 36px;
     line-height: 52px;
   }
-  .app__main-content_text h2{
+  .app__main-content_text h2 {
     font-size: 28px;
     line-height: 36px;
   }
-  .app__main-content_text-button{
+  .app__main-content_text-button {
     max-width: 250px;
   }
 }
