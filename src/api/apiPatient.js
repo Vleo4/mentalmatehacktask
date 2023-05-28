@@ -195,3 +195,20 @@ export const postMyJournalApi = async (content,type) => {
         console.log(error);
     }
 };
+
+export const addPsychoJournal = async (id) => {
+    try {
+        return await axios.patch(
+            url + "journal/addpsycho/",
+            {"psycho_id":id},
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + accessToken,
+                },
+            }
+        );
+    } catch (error) {
+        return error.response;
+    }
+};
