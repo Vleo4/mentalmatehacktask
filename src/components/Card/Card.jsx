@@ -1,5 +1,11 @@
 import "./Card.css";
 import images from "../../constants/images";
+import { categoriesImages } from "../../constants";
+
+const getImageUrl = (categoryId) => {
+  const category = categoriesImages.find((item) => item.id === categoryId);
+  return category ? category.imgUrl : images.DefaultCategoryIco;
+};
 
 const Card = ({ problem }) => {
   const shortenedTitle =
@@ -19,7 +25,7 @@ const Card = ({ problem }) => {
       {problem.has_answers && <div className="problem__dot">!</div>}
       <div className="card__content">
         <div className="card__content-category">
-          <img src={images.CategoryIco} alt="Category" />
+          <img src={getImageUrl(problem.cat.id)} alt="Category" />
           <h2>{problem.cat.title}</h2>
         </div>
         <h2>{problem.title}</h2>

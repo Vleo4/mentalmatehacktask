@@ -552,7 +552,7 @@ const Register = () => {
                                             setIsActiveAdd(false);
                                         }}
                                         type="text"
-                                        placeholder="Додати"
+                                        placeholder="Наприклад: психоаналіз"
                                         value={add}
                                     />
                                     <img src={images.Add} alt="add" onClick={addPerspectives} className="login__input__img__right"/>
