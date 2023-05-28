@@ -111,8 +111,12 @@
 }
 
 .problems__container-content_totaldrop-dropdown_content-wrapper {
+  display: flex;
   padding: 6px 10px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .problems__container-content_totaldrop-dropdown_content-wrapper:first-child {
@@ -132,7 +136,13 @@
   line-height: 19px;
   color: #ffffff;
 }
-
+.problems__container-content_totaldrop-dropdown_content-wrapper span {
+  font-family: var(--font-mont);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  color: #ffffff;
+}
 .problems__container-content_totaldrop-dropdown_content-wrapper:hover {
   background: rgba(255, 255, 255, 0.3);
 }
