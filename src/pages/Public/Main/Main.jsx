@@ -47,6 +47,7 @@ const Main = () => {
           onClick={() => {
             handleScrollToLast();
             handleArrowShow();
+            
           }}
         />
       </section>
