@@ -1,32 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import {useEffect, useState} from "react";
-import {getNotificationAPI, isPsycho} from "../../api/apiPublic";
+import { useEffect, useState } from "react";
+import { getNotificationAPI, isPsycho } from "../../api/apiPublic";
 import { isAuth } from "../../api/AuthContext";
 import { clearStorages } from "../../api/tokenStorage";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const[checked,setChecked]=useState(false);
+  const [checked, setChecked] = useState(false);
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getNotificationAPI();
-      console.log(data);
-      setChecked(data.check);
-    };
-    fetchData();
-    const interval = setInterval( async () => {
-      // Function to be executed every 30 seconds
-      const data=await getNotificationAPI();
-      console.log(data)
-      setChecked(data.check);
-    }, 30000);
-    return () => {
-      clearInterval(interval);
-    };
+    if (!isPsycho()) {
+      const fetchData = async () => {
+        const data = await getNotificationAPI();
+       
+        setChecked(data.check);
+      };
+      fetchData();
+      const interval = setInterval(async () => {
+        // Function to be executed every 30 seconds
+        const data = await getNotificationAPI();
+      
+        setChecked(data.check);
+      }, 30000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
   }, []);
 
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Navbar = () => {
     clearStorages();
     navigate("/");
   };
-  console.log(checked)
+  
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -65,8 +67,8 @@ const Navbar = () => {
                 <div className="notification">
                   <Link to="/problems" className="navbar__container-links_item">
                     Мої проблеми
-                  </Link>{checked==true&&
-                  <div className="notification-icon"></div>}
+                  </Link>
+                  {checked == true && <div className="notification-icon"></div>}
                 </div>
                 <Link
                   to="/approved-problems"
@@ -76,6 +78,9 @@ const Navbar = () => {
                 </Link>
                 <Link to="/psychos" className="navbar__container-links_item">
                   Психологи
+                </Link>
+                <Link to="/journal" className="navbar__container-links_item">
+                  Журнал
                 </Link>
                 <h1 className="navbar__container-links_item" onClick={logOut}>
                   Вийти
@@ -91,6 +96,12 @@ const Navbar = () => {
                   className="navbar__container-links_item"
                 >
                   Узгоджено
+                </Link>
+                <Link
+                  to="/journallist"
+                  className="navbar__container-links_item"
+                >
+                  Список журналів
                 </Link>
                 <Link to="/profile" className="navbar__container-links_item">
                   Профіль
@@ -164,6 +175,18 @@ const Navbar = () => {
                     </Link>
                   )}
                 </div>
+                {/* --------------------------------- */}
+                {isPsycho() && (
+                  <div
+                    className="navbar-smallscreen_item-wrapper"
+                    onClick={handleToggleMenu}
+                  >
+                    <Link to="/journallist" className="navbar-smallscreen_item">
+                      Список журналів
+                    </Link>
+                  </div>
+                )}
+                {/* --------------------------------- */}
                 <div
                   className="navbar-smallscreen_item-wrapper"
                   onClick={handleToggleMenu}
@@ -186,8 +209,18 @@ const Navbar = () => {
                     className="navbar-smallscreen_item-wrapper"
                     onClick={handleToggleMenu}
                   >
-                    <Link to="psychos" className="navbar-smallscreen_item">
+                    <Link to="/psychos" className="navbar-smallscreen_item">
                       Психологи
+                    </Link>
+                  </div>
+                )}
+                {!isPsycho() && (
+                  <div
+                    className="navbar-smallscreen_item-wrapper"
+                    onClick={handleToggleMenu}
+                  >
+                    <Link to="/journal" className="navbar-smallscreen_item">
+                      Журнал
                     </Link>
                   </div>
                 )}

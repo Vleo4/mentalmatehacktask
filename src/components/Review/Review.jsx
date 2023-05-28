@@ -21,7 +21,7 @@ const Review = ({ review }) => {
           if (id >= review.rating) {
             return <img key={id} src={images.EmptyStar} alt="star" />;
           } else {
-            console.log(id);
+           
             return <img key={id} src={images.Star} alt="star" />;
           }
         })}

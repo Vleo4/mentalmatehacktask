@@ -31,7 +31,7 @@ const MyProblems = () => {
       const data = await getMyProblemsApi();
       setProblems(data);
       setProblemsSearch(data);
-      console.log(data);
+      
       setIsLoading(false);
     };
     getProblems();

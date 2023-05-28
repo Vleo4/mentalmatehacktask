@@ -1,3 +1,4 @@
+import { isPsycho } from "../../api/apiPublic";
 import "./Search.css";
 import {useState} from "react";
 const Search = (props) => {
@@ -11,7 +12,8 @@ const Search = (props) => {
             const categoryMatch = problem.cat.title.toUpperCase().includes(e.target.value.toUpperCase());
             return titleMatch || descriptionMatch||conclusionMatch || categoryMatch;
         });
-        props.handleOptionClick("Усі категорії")
+       
+        if(isPsycho()){props.handleOptionClick("Усі категорії")}
         props.setProblemsSearch(newProblems?newProblems:[]);
     };
 

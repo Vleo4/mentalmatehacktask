@@ -16,7 +16,7 @@ const MyProblemID = () => {
     const fetchProblem = async () => {
     setIsLoading(true);
     const data = await profileApi();
-    console.log(data);
+   
     setProblem(data);
     setTimeout(() => setIsLoading(false), 600);
   };

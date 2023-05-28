@@ -1,7 +1,7 @@
 import "../JournalCard/JournalCard.css";
 
 const JournalListCard = ({ journal }) => {
-  console.log(journal)
+ 
   return (
     <div onClick={()=>{window.location.href='/journal/'+journal.id}}
     className='journalCard'

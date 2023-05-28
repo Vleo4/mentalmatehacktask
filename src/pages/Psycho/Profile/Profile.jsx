@@ -32,7 +32,7 @@ const Profile = () => {
   const fetchUser = async () => {
     setIsLoading(true);
     const data = await profileApi();
-    console.log(data);
+    
     setUser(data);
     setTimeout(() => setIsLoading(false), 600);
   };

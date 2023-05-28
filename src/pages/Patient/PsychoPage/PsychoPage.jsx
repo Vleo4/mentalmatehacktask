@@ -24,7 +24,7 @@ const PsychoPage = () => {
     const getPsychos = async () => {
       setIsLoading(true);
       const data = await psychosListApi();
-      console.log(data);
+    
       setPsychos(data);
       setPsychosSearch(data);
       setIsLoading(false);

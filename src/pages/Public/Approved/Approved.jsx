@@ -23,10 +23,10 @@ const Approved = () => {
       setIsLoading(true);
       if (isPsycho()) {
         const data = await getAppliedApi();
-        console.log(data);
+        
         setProblems(data);
         setProblemsSearch(data);
-        console.log(data);
+      
       } else {
         const data = await getAppliedUserApi();
         setProblems(data);
