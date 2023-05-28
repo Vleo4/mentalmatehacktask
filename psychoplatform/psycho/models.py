@@ -80,6 +80,7 @@ class Problem(models.Model):
     is_closed = models.BooleanField(default=False)
     executor = models.ForeignKey(PsychoUser, on_delete=models.CASCADE, blank=True, null=True)
     cat = models.ForeignKey(ProblemCategory, on_delete=models.CASCADE)
+    time_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -114,5 +115,5 @@ class Journal(models.Model):
     patient = models.ForeignKey(PlatformAbstractUser, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
     emotions = models.ManyToManyField(Emotion, blank=True)
-    psycho = models.ManyToManyField(PsychoUser, blank=True, null=True)
+    psycho = models.ManyToManyField(PsychoUser, blank=True)
 

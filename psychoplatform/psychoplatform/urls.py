@@ -30,8 +30,10 @@ urlpatterns = [
     path('api/user/problem/update/<int:pk>/', UpdateProblemAPIView.as_view()),
     path('api/user/review/', ReviewPsychoAPIView.as_view()),
     path('api/user/journal/', UserRetrieveJournalAPIView.as_view()),
+    path('api/user/journal/addpsycho/', AddPsychoToJournalView.as_view()),    #patch
     path('api/user/emotion/create/', CreateEmotionAPIView.as_view()),
-    path('api/user/emotion/update/', UpdateEmotionAPIView.as_view()),
-    path('api/user/emotion/destroy/', DestroyEmotionAPIView.as_view()),
-    path('api/google_login/', GoogleAuthAPIView.as_view())
+    path('api/user/emotion/update/<int:pk>/', UpdateEmotionAPIView.as_view()),
+    path('api/user/emotion/destroy/<int:pk>/', DestroyEmotionAPIView.as_view()),
+    path('api/google_login/', GoogleAuthAPIView.as_view()),
+    path('api/notification/', CheckNotification.as_view())
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

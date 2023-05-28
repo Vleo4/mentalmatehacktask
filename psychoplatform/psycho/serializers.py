@@ -33,9 +33,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class PsychoUserSerializer(serializers.ModelSerializer):
+    average_rating = serializers.SerializerMethodField()
+
     class Meta:
         model = PsychoUser
         fields = "__all__"
+
+    def get_average_rating(self, obj):
+        reviews = Review.objects.filter(psycho=obj)
+        if reviews.exists():
+            return sum([review.rating for review in reviews]) / reviews.count()
+        return 0
 
 class PsychoUserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,10 +63,14 @@ class CreateProblemSerializer(serializers.ModelSerializer):
 
 class ProblemSerializer(serializers.ModelSerializer):
     cat = CategorySerializer()
+    has_answers = serializers.SerializerMethodField()
 
     class Meta:
         model = Problem
         fields = '__all__'
+
+    def get_has_answers(self, obj):
+        return obj.answer_set.exists()  # Check if the problem has any answers
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -145,9 +157,14 @@ class EmotionSerializer(serializers.ModelSerializer):
 
 
 class EmotionCreateSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
     class Meta:
         model = Emotion
         fields = "__all__"
+
+    def get_user(self, obj):
+        return self.context['request'].user.id
 
 class JournalDetailSerializer(serializers.ModelSerializer):
     emotions = EmotionSerializer(many=True, read_only=True)
@@ -155,3 +172,21 @@ class JournalDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Journal
         fields = "__all__"
+
+class UserJournalDetailSerializer(serializers.ModelSerializer):
+    emotions = EmotionSerializer(many=True, read_only=True)
+    psycho_executors = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Journal
+        fields = ['emotions', 'psycho_executors'] + [f.name for f in Journal._meta.fields]
+
+    def get_psycho_executors(self, obj):
+        user = self.context['request'].user
+        problems = Problem.objects.filter(customer=user)
+        psycho_users = PsychoUser.objects.filter(problem__in=problems).distinct()
+        return PsychoUserSerializer(psycho_users, many=True).data
+
+
+class NotificationSerializer(serializers.Serializer):
+    check = serializers.BooleanField()

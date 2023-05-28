@@ -53,9 +53,9 @@ class ApproveExecutorAPIView(generics.UpdateAPIView):
         answer_id = request.data.get('answer_id')
         is_approved = request.data.get('is_approved')
 
-        if not answer_id:
+        if answer_id is None:
             return Response({"error": "answer_id is required"}, status=status.HTTP_400_BAD_REQUEST)
-        if not is_approved:
+        if is_approved is None:
             return Response({"error": "is_approved is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         user_x = request.user
@@ -266,7 +266,7 @@ class ReviewPsychoAPIView(generics.CreateAPIView):
 
 
 class PsychoRetrieveJournalAPIView(generics.RetrieveAPIView):
-    serializer_class = JournalSerializer
+    serializer_class = JournalDetailSerializer
 
     def get_queryset(self):
         user_x = self.request.user
@@ -300,7 +300,7 @@ class PsychoJournalListAPIView(generics.ListAPIView):
         return queryset
 
 class UserRetrieveJournalAPIView(generics.RetrieveAPIView):
-    serializer_class = JournalDetailSerializer
+    serializer_class = UserJournalDetailSerializer
 
     def get_object(self):
         user = self.request.user
@@ -313,6 +313,10 @@ class CreateEmotionAPIView(generics.CreateAPIView):
     serializer_class = EmotionCreateSerializer
 
     def perform_create(self, serializer):
+        if self.request.user.is_psycho:
+            return Response({"detail": "Psycho users can't create emotions."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         emotion = serializer.save(user=self.request.user)
         journal = Journal.objects.get(patient=self.request.user)
         journal.emotions.add(emotion)
@@ -348,3 +352,42 @@ class DestroyEmotionAPIView(generics.DestroyAPIView):
         queryset = self.get_queryset()
         obj = get_object_or_404(queryset, pk=self.kwargs["pk"])
         return obj
+
+class AddPsychoToJournalView(generics.UpdateAPIView):
+    serializer_class = JournalSerializer
+
+    def get_object(self):
+        user = self.request.user
+        if user.is_psycho:
+            return Response({"detail": "You are not authorized to update this problem."},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        return Journal.objects.get(patient=user)
+
+    def patch(self, request, *args, **kwargs):
+        journal = self.get_object()
+        psycho_id = request.data.get('psycho_id')
+        psycho_user = get_object_or_404(PsychoUser, id=psycho_id)
+
+        # Check if the current user is the patient of the journal
+        if request.user != journal.patient:
+            return Response({"detail": "You are not authorized to update this journal."},
+                            status=status.HTTP_403_FORBIDDEN)
+
+        # Add the psycho_user to the journal
+        journal.psycho.add(psycho_user)
+        return Response(JournalSerializer(journal).data)
+
+class CheckNotification(generics.RetrieveAPIView):
+    serializer_class = NotificationSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        platform_user = request.user
+        if platform_user.is_psycho:
+            return Response({"detail": "You are not authorized"},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+        has_open_problem_with_answer = Problem.objects.filter(customer=platform_user, is_closed=False,
+                                                              answer__is_closed=False).exists()
+
+        serializer = self.get_serializer(instance={"check": has_open_problem_with_answer})
+        return Response(serializer.data)
