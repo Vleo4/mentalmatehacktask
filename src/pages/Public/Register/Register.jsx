@@ -9,8 +9,10 @@ import {isAuth} from "../../../api/AuthContext.jsx";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import {updatePsycho} from "../../../api/apiPsycho.js";
 import {digits, emailRegex, languages} from "../../../constants/index.js";
+import {TopLoader} from "../../../components/index.js";
 
 const Register = () => {
+    const [loading,setLoading]=useState(false);
     const [lang,setLang]=useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const handleOptionClick = (option) => {
@@ -111,7 +113,10 @@ const Register = () => {
     const [isActiveLogin, setIsActiveLogin] = useState(true);
     const handleLogin = (event) => {
         setIsLogin(true);
-        setLogin(event.target.value);
+        const fail=event.target.value.includes(' ')
+        if(!fail) {
+            setLogin(event.target.value);
+        }
     };
     //name
     const [name, setName] = useState(null);
@@ -145,8 +150,8 @@ const Register = () => {
 
 
     const register = async () => {
+        setLoading(true);
         const data = await registerApi(login, email, pass,isPsycho);
-        console.log(data.data);
         if (data.data.access) {
             saveToLocalStorage("ACCESS_TOKEN", data.data.access);
             saveToLocalStorage("REFRESH_TOKEN", data.data.refresh);
@@ -157,6 +162,7 @@ const Register = () => {
         }
     }
     const loginApi = () => {
+        setLoading(true)
         setAlert(false);
         let emailCheck = emailRegex.test(email);
         const passOnlyDigits = digits.test(pass);
@@ -175,7 +181,11 @@ const Register = () => {
                 setAlert(true);
             }
             else{
-                register().then();
+                register().then(()=>{
+                    setLoading(false);
+                }).catch(()=>{
+                    setLoading(false);
+                });
             }
         }
         else if(!alert) {
@@ -183,9 +193,14 @@ const Register = () => {
                 const perspective = perspectives.join(', ');
                 const langs=lang.join(', ');
                 const contacts=number+", "+mail;
-                updatePsycho(name, desc, files, "UNSKILL", perspective, langs, contacts,age).then();
+                updatePsycho(name, desc, files, "UNSKILL", perspective, langs, contacts,age).then(()=>{
+                    setLoading(false);
+                }).catch(()=>{
+                    setLoading(false);
+                });
             } else if (part === 1 &&(isPsycho === false || isPsycho === true)) {
                 setPart(part + 1)
+                setLoading(false);
             }
         }
     };
@@ -210,11 +225,12 @@ const Register = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuth()]);
-
+    console.log(loading);
     return (
         <>
         <div className="login">
             <div className="login__login">
+                {loading?<TopLoader/>:
                 <div className={part===3?!isPsycho?"login__block registerProblem":"login__block register3":"login__block register"}>
                     <div className="login__block__mini">
                         <div
@@ -252,6 +268,7 @@ const Register = () => {
                                 <input
                                     className="login__input"
                                     onChange={handleLogin}
+                                    value={login}
                                     onBlur={() => {
                                         setIsActiveLogin(true);
                                     }}
@@ -319,7 +336,10 @@ const Register = () => {
                                 />
                             </div>
                             <div
-                                onClick={loginApi}
+                                onClick={()=>{
+                                    setLoading(true);
+                                    loginApi();
+                                }}
                                 className={button ? "login__button" : "login__button__disabled"}
                             ><span>Продовжити</span>
                             </div>
@@ -335,7 +355,7 @@ const Register = () => {
                                 <span className="login__or__right"></span>
                             </div>
                             <div className="google__button-login">
-                                <GoogleOAuthProvider clientId="298908062102-2p5834iihc65s1qtua2oskkff673u8cn.apps.googleusercontent.com">
+                                <GoogleOAuthProvider clientId="298908062102-2ii5botcaj2d9c00tnfkct6jo72q8qkj.apps.googleusercontent.com">
                                     <GoogleLogin
                                         size="large"
                                         onSuccess={(response)=>{onSuccess(response,isPsycho);setPart(part+1);}}
@@ -369,7 +389,9 @@ const Register = () => {
                                 </div>
                             </div>
                             <div
-                                onClick={loginApi}
+                                onClick={()=>{        setLoading(true);
+                                    loginApi();
+                                }}
                                 className={isPsycho === false || isPsycho === true ? "login__button" : "login__button__disabled"}
                             ><span>Продовжити</span>
                             </div>
@@ -612,7 +634,10 @@ const Register = () => {
                                 </div>
 
                                 <div
-                                    onClick={loginApi}
+                                    onClick={()=>{
+                                        setLoading(true);
+                                        loginApi();
+                                    }}
                                     className={button3 ? "login__button" : "login__button__disabled"}
                                 ><span>Зареєструватися</span>
                                 </div>
@@ -624,12 +649,13 @@ const Register = () => {
                             <div
                                 onClick={()=>{window.location.href="/"}}
                                 className="login__button"
-                            ><span>Завершети реєстрацію</span>
+                            ><span>Завершити реєстрацію</span>
                             </div>
                             <span className="login__footer_2"></span>
                         </>}
                     </div>
             </div>
+                }
         </div>
     <span className="login__footer"></span>
 </div>

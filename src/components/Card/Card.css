@@ -13,6 +13,25 @@
   cursor: pointer;
 }
 
+.problem__dot {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mont);
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -5px;
+  margin-right: -5px;
+}
+
 .card__content h2 {
   word-break: break-all;
   font-family: var(--font-mont);
@@ -63,4 +82,11 @@
   .card {
     height: 100%;
   }
+}
+.status-ap {
+  border: 1px solid #00ff38;
+}
+
+.status-pe {
+  border: 1px solid #fbbc05;
 }

@@ -43,8 +43,9 @@ export const categories=
     {  id:5,title:'Залежність'},
     {  id:6,title:'Міжособистісні проблеми'},
     {  id:7,title:'Травми'},
-    {  id:8,title:'Сексуальні розлади'},
+    {  id:8,title:'Романтичні розлади'},
     {  id:9,title:'Розлади сна'},
     {  id:10,title:'Розлади особистості'},
 ]
+export const mood=[images.One,images.Two,images.Three,images.Four,images.Five];
 export {images};

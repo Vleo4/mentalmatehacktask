@@ -1,0 +1,108 @@
+.review__create {
+    position: fixed;
+    height: Calc(100vh + 100px);
+    width: 100%;
+    z-index: 1;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+.review__create_container{
+    background: rgba(44, 52, 62, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.084), 0 2px 3px rgba(0, 0, 0, 0.168);
+    border-radius: 6px;
+    width: 635px;
+    height: 363px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: center;
+    align-items: center;
+    margin-top: 5vh;
+}
+.review__block{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    text-align: center;
+    width: 100%;
+}
+.review__block img{
+    margin-right:24px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.stars{
+    display: flex;
+    gap: 4px;
+}
+.stars img{
+    cursor: pointer;
+}
+.review__create_header{
+    font-family: var(--font-mont);
+     margin-top: 24px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    width: 90%;
+    margin-left: 24px;
+}
+.review__create_text{
+    font-family: var(--font-mont);
+    margin-top: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    margin-right: auto;
+    padding-left: 24px;
+    color: #FFFFFF;
+    opacity: 0.8;
+}
+.review__create_container textarea{
+    margin: 8px 24px 24px;
+    width: Calc(100% - 48px);
+    height: 136px;
+    resize: none;
+    padding: 8px;
+    font-family: var(--font-mont);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: justify;
+    color: #FFFFFF;
+    background: rgba(44, 52, 62, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.084), 0 2px 3px rgba(0, 0, 0, 0.168);
+    border-radius: 6px;
+}
+.review__create_container textarea:focus {
+    outline: 1px solid rgba(255, 255, 255, 1);
+}
+.review__create__button{
+    width: 268px;
+    max-width: 95%;
+    background: #FFFFFF;
+    border-radius: 6px;
+    height: 34px;
+    font-family: var(--font-mont);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height:34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #2C343E;
+    margin-top: 36px;
+    cursor: pointer;
+}

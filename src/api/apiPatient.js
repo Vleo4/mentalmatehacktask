@@ -136,4 +136,62 @@ export const psychosListApi = async () => {
     console.log(error);
   }
 };
+export const getAppliedUserApi = async () => {
+  try {
+    const response = await axios.get(url + `problem/pending/`, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const createReviewAPI = async (rating,comment,psycho) => {
+    try {
+        return await axios.post(url + "review/", {
+            "rating": rating,
+            "comment": comment,
+            "psycho": psycho
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
+    } catch (error) {
+        return error.response;
+    }
+}
+export const getMyJournalApi = async () => {
+    try {
+        const response = await axios.get(url + `journal/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const postMyJournalApi = async (content,type) => {
+    try {
+        const response = await axios.post(url + `emotion/create/`, {
+            content:content,
+            type:type
+        },{
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + accessToken
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

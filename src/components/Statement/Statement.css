@@ -11,10 +11,23 @@
     margin-top: 16px;
     flex-direction: row;
 }
+.specialist{
+    width: 100%;
+    height: 131px;
+    background: rgba(44, 52, 62, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.084), 0 2px 3px rgba(0, 0, 0, 0.168);
+    border-radius: 6px;
+    display: flex;
+    text-align: center;
+    padding-top: 16px;
+    margin-top: 16px;
+    flex-direction: row;
+}
 .statement__first{
     display: flex;
 }
-.statement img {
+.statement img,.specialist img {
     height: 69px;
     width: 69px;
     border-radius: 1000px;
@@ -29,17 +42,12 @@
     align-items: center;
     font-style: normal;
     color: #FFFFFF;
+    white-space: nowrap;
 }
 .statement_text div:first-child{
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-}
-.statement_text div:last-child{
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    padding-top: 16px;
 }
 .statement_buttons{
     color: #2C343E;
@@ -47,6 +55,10 @@
     padding-right: 16px;
     max-width: 248px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:12px;
 }
 .statement_button_big{
     font-family: var(--font-mont);
@@ -65,7 +77,6 @@
 }
 .statement_buttons_smalls{
     display: flex;
-    margin-top: 17px;
     gap: 12px;
     max-width: 248px;
     width: 100%;
@@ -84,15 +95,15 @@
     height: 26px;
     background: #FFFFFF;
     border-radius: 6px;
+    margin-bottom: 16px;
 }
 @media screen and (max-width: 500px) {
-    .statement {
+    .statement,.specialist {
         flex-direction: column;
         height: auto;
         align-items: center;
         justify-content: center;
     }
-
     .statement_buttons {
         display: flex;
         margin: 16px 0 0;
@@ -103,3 +114,7 @@
     }
 }
 
+.greenButton{
+    background: #90FF7E;
+    margin-bottom: 16px;
+}

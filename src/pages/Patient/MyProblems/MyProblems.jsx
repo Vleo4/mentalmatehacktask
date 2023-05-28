@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import "./MyProblems.css";
 import { isAuth } from "../../../api/AuthContext";
 import { isPsycho } from "../../../api/apiPublic";
-import { Card, Loader, TopLoader } from "../../../components";
-import images from "../../../constants/images";
+import { Card, Loader, Search, TopLoader } from "../../../components";
 import { getMyProblemsApi } from "../../../api/apiPatient.js";
 import { Link } from "react-router-dom";
-import Search from "../../../components/Search/Search.jsx";
 
 const MyProblems = () => {
   useEffect(() => {
@@ -24,16 +22,7 @@ const MyProblems = () => {
   const [isLoading, setIsLoading] = useState(false);
   // -------------------------- DROPDOWN SORT ---------------------------------
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-  const [selectedOption, setSelectedOption] = useState("Останні");
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsDropdownOpen(false);
-  };
   const [problems, setProblems] = useState([]);
   const [problemsSearch,setProblemsSearch]=useState([]);
   useEffect(() => {
@@ -47,6 +36,9 @@ const MyProblems = () => {
     };
     getProblems();
   }, []);
+
+
+
   // ---------------------------------------------------------------------------
   return (
     <div className="problems">
@@ -65,36 +57,7 @@ const MyProblems = () => {
             <span></span>
             <div className="problems__container-content_totaldrop">
               <h4>Загалом: {problemsSearch && problemsSearch.length}</h4>
-              <div className="problems__container-content_totaldrop-dropdown">
-                <button onClick={toggleDropdown}>
-                  {selectedOption}{" "}
-                  <img src={images.ArrowDown} alt="ArrowDown" />
-                </button>
-                <div
-                  className={`problems__container-content_totaldrop-dropdown_content ${
-                    isDropdownOpen ? "open" : ""
-                  }`}
-                >
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Останні")}
-                  >
-                    <p>Останні</p>
-                  </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Узгоджені")}
-                  >
-                    <p>Узгоджені</p>
-                  </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("В очікуванні")}
-                  >
-                    <p>В очікуванні</p>
-                  </div>
-                </div>
-              </div>
+
             </div>
             {problemsSearch.length == 0 && (
               <div className="none">

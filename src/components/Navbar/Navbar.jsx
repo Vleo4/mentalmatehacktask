@@ -1,22 +1,40 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { useState } from "react";
-import { isPsycho } from "../../api/apiPublic";
+import {useEffect, useState} from "react";
+import {getNotificationAPI, isPsycho} from "../../api/apiPublic";
 import { isAuth } from "../../api/AuthContext";
 import { clearStorages } from "../../api/tokenStorage";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-
+  const[checked,setChecked]=useState(false);
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getNotificationAPI();
+      console.log(data);
+      setChecked(data.check);
+    };
+    fetchData();
+    const interval = setInterval( async () => {
+      // Function to be executed every 30 seconds
+      const data=await getNotificationAPI();
+      console.log(data)
+      setChecked(data.check);
+    }, 30000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const navigate = useNavigate();
   const logOut = () => {
     clearStorages();
     navigate("/");
   };
+  console.log(checked)
   return (
     <nav className="navbar">
       <div className="navbar__container">
@@ -44,9 +62,12 @@ const Navbar = () => {
                 >
                   Створити проблему
                 </Link>
-                <Link to="/problems" className="navbar__container-links_item">
-                  Мої проблеми
-                </Link>
+                <div className="notification">
+                  <Link to="/problems" className="navbar__container-links_item">
+                    Мої проблеми
+                  </Link>{checked==true&&
+                  <div className="notification-icon"></div>}
+                </div>
                 <Link
                   to="/approved-problems"
                   className="navbar__container-links_item"

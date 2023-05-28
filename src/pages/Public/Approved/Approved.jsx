@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Approved.css";
-import '../../Psycho/Problems/Problems.css';
+import "../../Psycho/Problems/Problems.css";
 import { isAuth } from "../../../api/AuthContext.jsx";
 import { isPsycho } from "../../../api/apiPublic.js";
-import { Card, Loader, TopLoader } from "../../../components/index.js";
+import { Card, Loader, Search, TopLoader } from "../../../components/index.js";
 import images from "../../../constants/images.js";
-import {getAppliedApi} from "../../../api/apiPsycho.js";
-import {getAppliedUserApi} from "../../../api/apiPatient.js";
-import Search from "../../../components/Search/Search.jsx";
+import { getAppliedApi } from "../../../api/apiPsycho.js";
+import { getAppliedUserApi } from "../../../api/apiPatient.js";
+import { categories } from "../../../constants";
 
 const Approved = () => {
   useEffect(() => {
@@ -23,6 +23,7 @@ const Approved = () => {
       setIsLoading(true);
       if (isPsycho()) {
         const data = await getAppliedApi();
+        console.log(data);
         setProblems(data);
         setProblemsSearch(data);
         console.log(data);
@@ -43,11 +44,23 @@ const Approved = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  const [selectedOption, setSelectedOption] = useState("Останні");
+  const [selectedOption, setSelectedOption] = useState("Усі категорії");
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
+    filterProblemsByCategory(option);
+  };
+
+  const filterProblemsByCategory = (category) => {
+    if (category === "Усі категорії") {
+      setProblemsSearch(problems);
+    } else {
+      const filteredProblems = problems.filter(
+        (problem) => problem.cat.title === category
+      );
+      setProblemsSearch(filteredProblems);
+    }
   };
   // ---------------------------------------------------------------------------
 
@@ -61,52 +74,19 @@ const Approved = () => {
           </div>
         ) : (
           <div className="problems__container-content">
-            <div className="problems__container-content_search">
-              <h1>Узгоджені проблеми</h1>
-              <Search problems={problems} setProblemsSearch={setProblemsSearch}/>
-            </div>
+            <h1>Узгоджені проблеми</h1>
             <span></span>
             <div className="problems__container-content_totaldrop">
               <h4>Загалом: {problemsSearch ? problemsSearch.length : "0"}</h4>
-              <div className="problems__container-content_totaldrop-dropdown">
-                <button onClick={toggleDropdown}>
-                  {selectedOption}{" "}
-                  <img src={images.ArrowDown} alt="ArrowDown" />
-                </button>
-                <div
-                  className={`problems__container-content_totaldrop-dropdown_content ${
-                    isDropdownOpen ? "open" : ""
-                  }`}
-                >
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Останні")}
-                  >
-                    <p>Останні</p>
-                  </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("Узгоджені")}
-                  >
-                    <p>Узгоджені</p>
-                  </div>
-                  <div
-                    className="problems__container-content_totaldrop-dropdown_content-wrapper"
-                    onClick={() => handleOptionClick("В очікуванні")}
-                  >
-                    <p>В очікуванні</p>
-                  </div>
-                </div>
-              </div>
             </div>
-              {problemsSearch.length === 0 && (
-                <div className="none">
-                  <h4>Наразі на цій сторінці немає жодних узгоджених проблем.</h4>
-                </div>
-              )}
+            {problemsSearch.length === 0 && (
+              <div className="none">
+                <h4>Наразі на цій сторінці немає жодних узгоджених проблем.</h4>
+              </div>
+            )}
             <div className="problems__container-content_cards">
               {problemsSearch &&
-                  problemsSearch.map((problem, index) => (
+                problemsSearch.map((problem, index) => (
                   <Card key={index} problem={problem} />
                 ))}
             </div>

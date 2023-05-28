@@ -1,41 +1,42 @@
-.problem__header{
-    font-family: var(--font-mont);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 49px;
-    color: #FFFFFF;
-    width: 100%;
-    padding-bottom: 8px;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
-    overflow: hidden;
+
+.problem__header {
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 49px;
+  color: #ffffff;
+  width: 100%;
+  padding-bottom: 8px;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+  overflow: hidden;
 }
-.problem__category{
-    padding-top: 24px;
-    display: flex;
-    text-align: center;
+.problem__category {
+  padding-top: 24px;
+  display: flex;
+  text-align: center;
 }
-.problem__category img{
-    height: 32px;
-    width: 32px;
+.problem__category img {
+  height: 32px;
+  width: 32px;
 }
-.problem__category div{
-    font-family: var(--font-mont);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    color: #FFFFFF;
-    padding-left: 8px;
+.problem__category div {
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  color: #ffffff;
+  padding-left: 8px;
 }
-.problem__description{
-    padding-top: 24px;
-    font-family: var(--font-mont);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: justify;
-    color: #FFFFFF;
-    word-break: break-all;
+.problem__description {
+  padding-top: 24px;
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: justify;
+  color: #ffffff;
+  word-break: break-all;
 }
