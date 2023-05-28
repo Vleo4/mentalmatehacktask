@@ -2,7 +2,7 @@ import "./MyProblemID.css";
 import { useEffect, useState } from "react";
 import { isAuth } from "../../../api/AuthContext";
 import { Alert, TopLoader } from "../../../components";
-import { Problem, Specialist, Statement,ProblemInput } from "../../../components/index.js";
+import {Problem, Specialist, Statement, ProblemInput, ReviewCreate} from "../../../components/index.js";
 import {
   closeProblemAPI,
   editProblemAPI,
@@ -10,8 +10,10 @@ import {
 } from "../../../api/apiPatient.js";
 import { useParams } from "react-router-dom";
 import { digits, emailRegex } from "../../../constants/index.js";
+import {Error404} from "../../index.js";
 const MyProblemID = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [createReview, setCreateReview] = useState(false);
   const [problem, setProblem] = useState(null);
   const { id } = useParams();
   useEffect(() => {
@@ -25,9 +27,13 @@ const MyProblemID = () => {
   const [mail, setMail] = useState("");
   const [conclusion, setConclusion] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [error,setError]=useState(false);
   const fetchProblem = async () => {
     setIsLoading(true);
     const prob = await getMyProblemIDApi(id);
+    if(prob===undefined){
+      setError(true);
+    }
     setProblem(prob);
     setTitle(prob.title);
     setDescription(prob.essence);
@@ -88,9 +94,11 @@ const MyProblemID = () => {
       fetchProblem();
     }
   };
-  return (
-    <div className="problem">
-      <Alert
+  return (error?<Error404/>:
+          <>
+            {createReview&&<ReviewCreate setCreateReview={setCreateReview} executor={problem.executor}/>}
+    <div className={createReview?"problem opacity_small":"problem"}>
+        <Alert
         text={text}
         handleCloseAlert={handleCloseAlert}
         showAlert={showAlert}
@@ -98,7 +106,7 @@ const MyProblemID = () => {
       {isLoading ? (
         <TopLoader />
       ) : (
-        <div className="problem__container">
+        <div  className={createReview?"problem__container problem__container_opacity_small":"problem__container"}>
           <div className="problem__container__container">
             {isEdit ? (
               <>
@@ -149,9 +157,12 @@ const MyProblemID = () => {
                 {problem && !problem.executor && problem.answers.length > 0 && (
                   <>
                     <div className="problem__container_peoples">Заявки:</div>
-                    {problem.answers.map((answer) => (
-                      <Statement key={answer.id} data={answer} fetchProblem={fetchProblem} />
-                    ))}
+                    {problem.answers.map((answer) => {
+            
+                        return <Statement key={answer.id} data={answer} fetchProblem={fetchProblem} />
+                
+                      }
+                    )}
                   </>
                 )}
                 {problem && problem.answers.length === 0 &&!problem.executor&& (
@@ -162,7 +173,7 @@ const MyProblemID = () => {
                     <div className="problem__container_peoples">
                       Зв'яжіться зі спеціалістом:
                     </div>
-                    <Specialist executor={problem.executor} />
+                    <Specialist executor={problem.executor} setCreateReview={setCreateReview}/>
                   </>
                 )}
               </>
@@ -171,6 +182,7 @@ const MyProblemID = () => {
         </div>
       )}
     </div>
+          </>
   );
 };
 

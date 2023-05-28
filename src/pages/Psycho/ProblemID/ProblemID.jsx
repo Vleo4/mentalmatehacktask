@@ -6,6 +6,7 @@ import {Problem, TopLoader} from "../../../components/index.js";
 import {getProblemPsychoApi, psychoAnswerAPI} from "../../../api/apiPsycho.js";
 import {useParams} from "react-router-dom";
 import {getFromLocalStorage} from "../../../api/tokenStorage.js";
+import {Error404} from "../../index.js";
 
 const ProblemID = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,22 +18,25 @@ const ProblemID = () => {
   }, [isAuth()]);
 
   const [problem,setProblem]=useState(null);
+  const [error,setError]=useState(false);
   const fetchProblem = async () => {
     setIsLoading(true);
     const data = await getProblemPsychoApi(id);
+    if(data==undefined){
+      setError(true);
+    }
     setProblem(data);
     setTimeout(() => setIsLoading(false), 600);
   };
   useEffect(()=>{
     fetchProblem();
   },[]);
-  console.log(problem)
   const answer= async ()=> {
     await psychoAnswerAPI(id);
     fetchProblem();
   }
   const accessToken = getFromLocalStorage("ACCESS_TOKEN");
-  return (
+  return (error?<Error404/>:
     <div className="problem">
       {isLoading ? (
         <TopLoader />

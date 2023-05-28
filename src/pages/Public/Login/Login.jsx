@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 import { loginApi, onFailure, onSuccess } from "../../../api/apiPublic.js";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { isAuth } from "../../../api/AuthContext.jsx";
+import {TopLoader} from "../../../components/index.js";
 
 const Login = () => {
+    const [loading,setLoading]=useState(false);
     useEffect(() => {
         if (isAuth()) {
             window.location.href = "/";
@@ -49,12 +51,14 @@ const Login = () => {
                 window.location.href = "/";
             } catch (err) {
                 setAlert(true);
+                setLoading(false);
             }
         }
     };
 
     return (
         <div className="login">
+            {loading?<TopLoader/>:
             <div className="login__login">
                 <div className="login__block">
                     <div className="login__block__mini">
@@ -125,7 +129,10 @@ const Login = () => {
                              alt="eye"/>
                         </div>
                         <div
-                            onClick={loginButton}
+                            onClick={()=>{
+                                setLoading(true);
+                                loginButton();
+                            }}
                             className={button ? "login__button" : "login__button__disabled"}
                         >
                         Увійти
@@ -141,7 +148,7 @@ const Login = () => {
                         </div>
 
                         <div className="google__button-login">
-                            <GoogleOAuthProvider clientId="298908062102-2p5834iihc65s1qtua2oskkff673u8cn.apps.googleusercontent.com">
+                            <GoogleOAuthProvider clientId="298908062102-2ii5botcaj2d9c00tnfkct6jo72q8qkj.apps.googleusercontent.com">
                                 <GoogleLogin
                                     size="large"
                                     onSuccess={onSuccess}
@@ -155,7 +162,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
             {alert && <span className="login__footer"></span>}
         </div>
     );

@@ -9,31 +9,31 @@ const Specialist = (props) => {
         const fetchUser = async () => {
             const data = await viewPsychoProfileApi(props.executor);
             console.log(data);
-            setPsycho(data.psycho);
+            setPsycho(data);
         };
         fetchUser();
     }, []);
     return (
-        <div className="statement">
+        <div className="specialist">
             {psycho && <>
                 <div className="statement__first">
                     <img src={images.Psycho} alt="india"/>
                     <div className="statement_text">
                         <div>{psycho.name}</div>
                         <div>Age: {psycho.age}</div>
-                    </div>
-                    <div className="statement_buttons">
+                        <div>Допомоги: {psycho&&psycho.total_helped}</div>
                         <div className="email">
                             <p className="profile__container-text-p">Ел. пошта:</p>
-                            <span>{psycho && psycho.contacts.split(", ")[0]}</span>
+                            <span>{psycho && psycho.contacts.split(", ")[1]}</span>
                         </div>
                         <div className="phone">
                             <p className="profile__container-text-p">Номер телефону:</p>
                             <span style={{whiteSpace: "nowrap"}}>
-                                {psycho && psycho.contacts.split(", ")[1]}
+                                {psycho && psycho.contacts.split(", ")[0]}
                             </span>
                         </div>
                     </div>
+
                 </div>
                 <div className="statement_buttons">
                     <div className="statement_button_big" onClick={() => {

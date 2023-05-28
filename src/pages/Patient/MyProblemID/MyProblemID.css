@@ -2,7 +2,6 @@
   display: flex;
   min-height: 100vh;
   justify-content: center;
-
 }
 
 .problem__container {
@@ -51,4 +50,11 @@
   display: flex;
   align-items: center;
   color: #FFFFFF;
+}
+.opacity_small{
+  background: rgba(0, 0, 0, 0.7);
+}
+.problem__container_opacity_small {
+  background: rgba(44, 52, 62, 0.2);
+  opacity: 0.2;
 }

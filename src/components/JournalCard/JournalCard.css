@@ -1,0 +1,96 @@
+.journalCard {
+  background: rgba(44, 52, 62, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  height: auto;
+  min-height: 72px;
+  width: 838px;
+  max-width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+.journalCardHeader{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-top: 8px;
+}
+.journalCard__content{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.8fr 7fr 2fr 0.2fr;
+  align-items: center;
+  min-height: 72px;
+  height: auto;
+}
+
+.journalCard__description{
+  word-break: break-all;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 24px;
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+}
+.journalCard__date{
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  text-align: start;
+}
+.journalCard__delete{
+  cursor: pointer;
+}
+.journalCard__content input{
+  margin-right: 24px;
+  outline: none;
+  background: rgba(44, 52, 62, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+  border-radius: 6px;
+  font-family: var(--font-mont);
+  font-style: normal;
+  color: #ffffff;
+  padding-left: 4px;
+}
+.journalCard__category{
+  font-family: var(--font-mont);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  max-width: 100px;
+}
+.journalCard__contentHeader{
+  width: Calc(100% - 48px);
+  display: grid;
+  grid-template-columns: 0.8fr 7fr 2fr 0.4fr;
+  align-items: center;
+  margin-left: 24px;
+  height: auto;
+}

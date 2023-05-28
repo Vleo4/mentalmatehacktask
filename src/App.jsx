@@ -9,8 +9,9 @@ import {
 import {
   Approved,
   CreateProblem,
+  Error404, Journal,
   Login,
-  Main,
+  Main, MyJournal,
   MyProblemID,
   MyProblems,
   Problems,
@@ -22,10 +23,12 @@ import {
 import { Navbar } from "./components";
 import ProblemID from "./pages/Psycho/ProblemID/ProblemID.jsx";
 import { isPsycho } from "./api/apiPublic.js";
+
 const Layout = () => {
   const location = useLocation();
   const isDisplay =
     location.pathname === "/login" || location.pathname === "/register";
+
 
   return (
     <>
@@ -35,16 +38,17 @@ const Layout = () => {
           {/* PUBLIC */}
           <Route path="/login" exact element={<Login />} />
           <Route path="/register" exact element={<Register />} />
+          <Route path="/error" exact element={<Error404 />} />
           <Route path="/" exact element={<Main />} />
 
           {/* PSYCHO */}
           <Route path="/profile" exact element={<Profile />} />
-
+          <Route path="/journal/:id" exact element={<Journal/>}/>
           {/* PATIENT */}
           <Route path="/psycho-profile/:id" exact element={<PsychoProfile />} />
           <Route path="/problem/create" exact element={<CreateProblem />} />
           <Route path="/psychos" exact element={<PsychoPage />} />
-
+          <Route path="/journal" exact element={<MyJournal />}/>
           {/* UNIVERSAL */}
           <Route
             path="/problem/:id"

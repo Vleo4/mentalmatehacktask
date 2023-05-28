@@ -63,6 +63,17 @@
 .navbar-smallscreen {
   display: none;
 }
+.notification{
+  display: flex;
+  gap: 4px;
+}
+.notification-icon{
+
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: red;
+}
 
 @media screen and (max-width: 1024px) {
   .navbar__container-links {

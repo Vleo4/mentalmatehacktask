@@ -9,4 +9,7 @@ import MyProblemID from "./Patient/MyProblemID/MyProblemID";
 import PsychoProfile from "./Patient/PsychoProfile/PsychoProfile";
 import MyProblems from "./Patient/MyProblems/MyProblems";
 import PsychoPage from "./Patient/PsychoPage/PsychoPage";
-export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems,PsychoPage };
+import Error404 from "./Public/Error404/Error404";
+import MyJournal from "./Patient/MyJournal/MyJournal.jsx";
+import Journal from "./Psycho/Journal/Journal.jsx";
+export { Login, Main, Register, Profile, Problems, Approved, CreateProblem, MyProblemID, PsychoProfile, MyProblems,PsychoPage, Error404, MyJournal, Journal };

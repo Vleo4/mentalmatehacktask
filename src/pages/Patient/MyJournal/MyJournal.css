@@ -1,0 +1,178 @@
+.journal {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.journal__container {
+    margin: 100px 0;
+    background: rgba(44, 52, 62, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+    border-radius: 6px;
+    max-width: 886px;
+    width: Calc(70vw - 100px);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.journal__container-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.journal__container-content h1 {
+    padding: 24px 24px 0;
+    font-family: var(--font-mont);
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 59px;
+    color: #ffffff;
+}
+@media screen and (max-width: 1024px) {
+    .journal {
+        flex-direction: column;
+    }
+
+    .journal__container {
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 250px;
+    }
+
+    .journal__container-content {
+
+    }
+}
+.journal__container-content__add{
+    display: flex;
+    align-items: center;
+    background: rgba(12, 15, 12, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    margin-right: 24px;
+    font-family: var(--font-mont);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    width: 154px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.containers__psycho{
+    display: flex;
+    flex-direction: column;
+    width: 302px;
+    height: 144px;
+    margin-top: 100px;
+    margin-left: 16px;
+    background: rgba(44, 52, 62, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 3px rgba(0, 0, 0, 0.084);
+    border-radius: 6px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.containers__psycho p{
+    font-family: var(--font-mont);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+}
+
+.journal__container-content_totaldrop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 8px;
+    align-items: center;
+}
+
+.journal__container-content_totaldrop h4 {
+    font-family: var(--font-mont);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.journal__container-content_totaldrop-dropdown {
+    position: relative;
+    max-width: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.journal__container-content_totaldrop-dropdown button {
+    all: unset;
+    cursor: pointer;
+    background: rgba(44, 52, 62, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    width: 63.33px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mont);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #ffffff;
+    padding: 0 10px;
+}
+
+.journal__container-content_totaldrop-dropdown_content {
+    display: none;
+}
+
+.journal__container-content_totaldrop-dropdown_content.open {
+    margin-top: 40px;
+    background: rgba(44, 52, 62, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    width: 63.33px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 5;
+}
+.journal__container-content_totaldrop-dropdown_content.open img{
+    padding-left: 15px;
+}
+.journal__container-content_totaldrop-dropdown_content-wrapper {
+    width: 63.33px;
+    cursor: pointer;
+}
+
+.journal__container-content_totaldrop-dropdown_content-wrapper:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.journal__container-content_totaldrop-dropdown_content-wrapper:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+.journal__container-content_totaldrop-dropdown_content-wrapper:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
