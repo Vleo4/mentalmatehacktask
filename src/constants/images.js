@@ -23,6 +23,16 @@ import Edit from "../assets/Profile/Edit.svg";
 import ArrowDown from "../assets/Problems/ArrowDown.svg";
 import Psycho from "../assets/Problems/Psycho.svg";
 
+import Romantic from "../assets/Problems/Romantic.svg";
+import Addiction from "../assets/Problems/Addiction.svg";
+import Stress from "../assets/Problems/Stress.svg";
+import Traumas from "../assets/Problems/Traumas.svg";
+import Realtion from "../assets/Problems/GayProblems.svg";
+import Trivoga from "../assets/Problems/Trivojnist.svg";
+import Ptsd from "../assets/Problems/PTSD.svg";
+import Sleep from "../assets/Problems/Sleep.svg";
+import Depression from "../assets/Problems/Depression.svg";
+import Rozladi from "../assets/Problems/Rozladi.svg";
 // Card
 import CategoryIco from "../assets/Card/CategoryIco.svg";
 import DeleteCard from "../assets/Card/Delete.svg";
@@ -72,6 +82,16 @@ export default {
   ArrowDown,
   Psycho,
 
+  Romantic,
+  Addiction,
+  Stress,
+  Traumas,
+  Realtion,
+  Trivoga,
+  Ptsd,
+  Sleep,
+  Depression,
+  Rozladi,
   //CardPsycho
   Ava,
   Star,
@@ -83,5 +103,5 @@ export default {
   Four,
   Five,
   Check,
-  CheckNo
+  CheckNo,
 };
