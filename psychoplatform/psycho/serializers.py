@@ -59,7 +59,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class CreateProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
-        fields = ('id', 'title', 'essence', 'conclusion', 'contacts', 'customer', 'cat')
+        fields = ('id', 'title', 'essence', 'conclusion', 'contacts', 'customer', 'cat', 'emergency_level')
 
 class ProblemSerializer(serializers.ModelSerializer):
     cat = CategorySerializer()

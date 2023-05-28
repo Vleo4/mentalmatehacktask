@@ -81,6 +81,7 @@ class Problem(models.Model):
     executor = models.ForeignKey(PsychoUser, on_delete=models.CASCADE, blank=True, null=True)
     cat = models.ForeignKey(ProblemCategory, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
+    emergency_level = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.title

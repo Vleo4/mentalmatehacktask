@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
+from psycho.chat_gpt import *
 from psycho.serializers import *
 
 
@@ -37,7 +38,8 @@ class CreateProblemAPIView(generics.CreateAPIView):
 
         request_data = request.data.copy()
         request_data['customer'] = customer_id
-
+        msg = lol(request_data.get('essence'))
+        request_data['emergency_level'] = msg
         serializer = self.get_serializer(data=request_data)
         serializer.is_valid(raise_exception=True)
         problem = serializer.save()

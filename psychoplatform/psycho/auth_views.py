@@ -52,6 +52,9 @@ class GoogleAuthAPIView(generics.CreateAPIView):
                         user=user,
                         name=user.username
                     )
+                else:
+                    journal = Journal.objects.create(patient=user)
+
                 user.is_psycho = is_psycho
                 user.save()
 
